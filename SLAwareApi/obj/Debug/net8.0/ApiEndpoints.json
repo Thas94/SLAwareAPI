@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "SLAwareApi.Controllers.SLAware.UserController",
+    "Method": "Login",
+    "RelativePath": "User/Login",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "firstname",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SLAwareApi.Models.SLAware.UserModel",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]
