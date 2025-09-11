@@ -7,16 +7,20 @@
       "RelativeMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|solutionrelative:slawareapi\\services\\slaware\\user\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\enums\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|solutionrelative:slawareapi\\enums\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\models\\slaware\\user\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|solutionrelative:slawareapi\\models\\slaware\\user\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\models\\slaware\\communication\\communicationtypemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|solutionrelative:slawareapi\\models\\slaware\\communication\\communicationtypemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\models\\slaware\\slaseverity\\slaseveritymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|solutionrelative:slawareapi\\models\\slaware\\slaseverity\\slaseveritymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\models\\slaware\\communication\\communicationtypemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|solutionrelative:slawareapi\\models\\slaware\\communication\\communicationtypemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\models\\slaware\\clienttier\\clienttiermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -64,23 +68,9 @@
               "RelativeDocumentMoniker": "SLAwareApi\\Services\\SLAware\\User\\UserService.cs",
               "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Services\\SLAware\\User\\UserService.cs",
               "RelativeToolTip": "SLAwareApi\\Services\\SLAware\\User\\UserService.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAmwDIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAqwBoAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-10T22:26:44.031Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserModel.cs",
-              "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Models\\SLAware\\User\\UserModel.cs",
-              "RelativeDocumentMoniker": "SLAwareApi\\Models\\SLAware\\User\\UserModel.cs",
-              "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Models\\SLAware\\User\\UserModel.cs",
-              "RelativeToolTip": "SLAwareApi\\Models\\SLAware\\User\\UserModel.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAoAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T22:17:26.361Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
@@ -95,7 +85,32 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-10T23:26:38.503Z",
-              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserModel.cs",
+              "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Models\\SLAware\\User\\UserModel.cs",
+              "RelativeDocumentMoniker": "SLAwareApi\\Models\\SLAware\\User\\UserModel.cs",
+              "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Models\\SLAware\\User\\UserModel.cs",
+              "RelativeToolTip": "SLAwareApi\\Models\\SLAware\\User\\UserModel.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAABYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T22:17:26.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Enums.cs",
+              "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Enums\\Enums.cs",
+              "RelativeDocumentMoniker": "SLAwareApi\\Enums\\Enums.cs",
+              "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Enums\\Enums.cs*",
+              "RelativeToolTip": "SLAwareApi\\Enums\\Enums.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T00:35:03.264Z",
               "EditorCaption": ""
             },
             {
@@ -108,20 +123,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "CommunicationTypeModel.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Models\\SLAware\\Communication\\CommunicationTypeModel.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Models\\SLAware\\Communication\\CommunicationTypeModel.cs",
               "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Models\\SLAware\\Communication\\CommunicationTypeModel.cs",
               "RelativeToolTip": "SLAwareApi\\Models\\SLAware\\Communication\\CommunicationTypeModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-10T23:39:37.166Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ClientTierModel.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Models\\SLAware\\ClientTier\\ClientTierModel.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Models\\SLAware\\ClientTier\\ClientTierModel.cs",
@@ -134,7 +149,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Controllers\\SLAware\\UserController.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Controllers\\SLAware\\UserController.cs",
@@ -147,7 +162,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\appsettings.json",
               "RelativeDocumentMoniker": "SLAwareApi\\appsettings.json",
@@ -160,7 +175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Program.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Program.cs",
@@ -173,7 +188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "IUserService.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Interfaces\\SLAware\\User\\IUserService.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Interfaces\\SLAware\\User\\IUserService.cs",
@@ -186,7 +201,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "SLAwareBaseService.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Services\\SLAware\\SLAwareBaseService.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Services\\SLAware\\SLAwareBaseService.cs",
@@ -199,7 +214,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "slaware_dataContext.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Entities\\SLAware\\slaware_dataContext.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Entities\\SLAware\\slaware_dataContext.cs",

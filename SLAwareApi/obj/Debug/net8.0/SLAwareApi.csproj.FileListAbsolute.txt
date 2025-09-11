@@ -187,3 +187,4 @@ C:\Websites\MyProjects\Nuxt3\SLAware\SLAwareApi\SLAwareApi\obj\Debug\net8.0\refi
 C:\Websites\MyProjects\Nuxt3\SLAware\SLAwareApi\SLAwareApi\obj\Debug\net8.0\SLAwareApi.pdb
 C:\Websites\MyProjects\Nuxt3\SLAware\SLAwareApi\SLAwareApi\obj\Debug\net8.0\SLAwareApi.genruntimeconfig.cache
 C:\Websites\MyProjects\Nuxt3\SLAware\SLAwareApi\SLAwareApi\obj\Debug\net8.0\ref\SLAwareApi.dll
+C:\Websites\MyProjects\Nuxt3\SLAware\SLAwareApi\SLAwareApi\obj\Debug\net8.0\SLAwareApi.sourcelink.json

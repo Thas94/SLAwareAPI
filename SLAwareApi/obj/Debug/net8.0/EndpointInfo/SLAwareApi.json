@@ -46,6 +46,40 @@
   },
   "components": {
     "schemas": {
+      "AgentModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientModel": {
+        "type": "object",
+        "properties": {
+          "tier": {
+            "type": "string",
+            "nullable": true
+          },
+          "slaSeverities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SlaSeverityModel"
+            },
+            "nullable": true
+          },
+          "communicationTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommunicationTypeModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CommunicationTypeModel": {
         "type": "object",
         "properties": {
@@ -97,23 +131,11 @@
             "type": "string",
             "nullable": true
           },
-          "clientTier": {
-            "type": "string",
-            "nullable": true
+          "client": {
+            "$ref": "#/components/schemas/ClientModel"
           },
-          "slaSeverities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SlaSeverityModel"
-            },
-            "nullable": true
-          },
-          "communicationTypes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CommunicationTypeModel"
-            },
-            "nullable": true
+          "agent": {
+            "$ref": "#/components/schemas/AgentModel"
           }
         },
         "additionalProperties": false
