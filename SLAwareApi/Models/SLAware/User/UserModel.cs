@@ -6,6 +6,7 @@
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? RoleName { get; set; }
+        public long RoleId { get; set; }
         public ClientModel Client { get; set; } = new ClientModel();
         public AgentModel Agent { get; set; } = new AgentModel();
     }

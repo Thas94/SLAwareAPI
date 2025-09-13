@@ -135,6 +135,10 @@
             "type": "string",
             "nullable": true
           },
+          "roleId": {
+            "type": "integer",
+            "format": "int64"
+          },
           "client": {
             "$ref": "#/components/schemas/ClientModel"
           },
