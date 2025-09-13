@@ -22,4 +22,8 @@ public partial class TicketNotification
     public DateTime? UpdatedAt { get; set; }
 
     public string? UpdatedBy { get; set; }
+
+    public virtual Ticket Ticket { get; set; } = null!;
+
+    public virtual User User { get; set; } = null!;
 }

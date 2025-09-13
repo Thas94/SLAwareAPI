@@ -68,7 +68,7 @@
               "RelativeDocumentMoniker": "SLAwareApi\\Services\\SLAware\\User\\UserService.cs",
               "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Services\\SLAware\\User\\UserService.cs",
               "RelativeToolTip": "SLAwareApi\\Services\\SLAware\\User\\UserService.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAawCIAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAawCMAAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-10T22:26:44.031Z",
               "IsPinned": true,
@@ -188,8 +188,7 @@
               "RelativeToolTip": "SLAwareApi\\Entities\\SLAware\\slaware_dataContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T22:16:21.001Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-10T22:16:21.001Z"
             },
             {
               "$type": "Document",
@@ -201,8 +200,7 @@
               "RelativeToolTip": "SLAwareApi\\Models\\SLAware\\SlaSeverity\\SlaSeverityModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T23:26:38.503Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-10T23:26:38.503Z"
             },
             {
               "$type": "Document",

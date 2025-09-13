@@ -33,6 +33,8 @@ public partial class slaware_dataContext : DbContext
 
     public virtual DbSet<TicketNotification> TicketNotifications { get; set; }
 
+    public virtual DbSet<TicketSlaTracking> TicketSlaTrackings { get; set; }
+
     public virtual DbSet<TicketStatus> TicketStatuses { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -74,6 +76,11 @@ public partial class slaware_dataContext : DbContext
             entity.Property(e => e.CreatedBy)
                 .HasMaxLength(100)
                 .HasColumnName("Created_By");
+
+            entity.HasOne(d => d.ClientTier).WithMany(p => p.ClientTierCommunicationTypes)
+                .HasForeignKey(d => d.ClientTierId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_client_tier_communication_types_client_tiers");
         });
 
         modelBuilder.Entity<ClientTierSeverityLevel>(entity =>
@@ -154,6 +161,11 @@ public partial class slaware_dataContext : DbContext
             entity.Property(e => e.InitialResponseHours).HasColumnName("Initial_Response_Hours");
             entity.Property(e => e.SlaSeverityLevelId).HasColumnName("SLA_Severity_Level_Id");
             entity.Property(e => e.TargetResolutionHours).HasColumnName("Target_Resolution_Hours");
+
+            entity.HasOne(d => d.SlaSeverityLevel).WithMany(p => p.SlaSeverityLevelRules)
+                .HasForeignKey(d => d.SlaSeverityLevelId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_sla_severity_level_rules_sla_severity_levels");
         });
 
         modelBuilder.Entity<Ticket>(entity =>
@@ -215,6 +227,25 @@ public partial class slaware_dataContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("Updated_By");
             entity.Property(e => e.UserId).HasColumnName("User_Id");
+
+            entity.HasOne(d => d.NewTicketStatus).WithMany(p => p.TicketActivityLogNewTicketStatuses)
+                .HasForeignKey(d => d.NewTicketStatusId)
+                .HasConstraintName("FK_ticket_activity_log_ticket_status");
+
+            entity.HasOne(d => d.OldTicketStatus).WithMany(p => p.TicketActivityLogOldTicketStatuses)
+                .HasForeignKey(d => d.OldTicketStatusId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ticket_activity_log_ticket_status1");
+
+            entity.HasOne(d => d.Ticket).WithMany(p => p.TicketActivityLogs)
+                .HasForeignKey(d => d.TicketId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ticket_activity_log_ticket");
+
+            entity.HasOne(d => d.User).WithMany(p => p.TicketActivityLogs)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ticket_activity_log_users");
         });
 
         modelBuilder.Entity<TicketMessage>(entity =>
@@ -232,6 +263,11 @@ public partial class slaware_dataContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("Replied_At");
             entity.Property(e => e.TicketId).HasColumnName("Ticket_Id");
+
+            entity.HasOne(d => d.Ticket).WithMany(p => p.TicketMessages)
+                .HasForeignKey(d => d.TicketId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ticket_messages_ticket");
         });
 
         modelBuilder.Entity<TicketNotification>(entity =>
@@ -255,6 +291,64 @@ public partial class slaware_dataContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("Updated_By");
             entity.Property(e => e.UserId).HasColumnName("User_Id");
+
+            entity.HasOne(d => d.Ticket).WithMany(p => p.TicketNotifications)
+                .HasForeignKey(d => d.TicketId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ticket_notifications_ticket");
+
+            entity.HasOne(d => d.User).WithMany(p => p.TicketNotifications)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ticket_notifications_users");
+        });
+
+        modelBuilder.Entity<TicketSlaTracking>(entity =>
+        {
+            entity.ToTable("ticket_sla_tracking");
+
+            entity.HasIndex(e => e.Id, "IX_ticket_sla_tracking");
+
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Created_At");
+            entity.Property(e => e.IsResolutionSlaBreach)
+                .HasColumnType("datetime")
+                .HasColumnName("IsResolution_SLA_Breach");
+            entity.Property(e => e.IsResponseSlaBreach)
+                .HasColumnType("datetime")
+                .HasColumnName("IsResponse_SLA_Breach");
+            entity.Property(e => e.PausedDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("Paused_DTM");
+            entity.Property(e => e.RemainingResolutionDueDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("Remaining_Resolution_Due_DTM");
+            entity.Property(e => e.RemainingResponseDueDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("Remaining_Response_Due_DTM");
+            entity.Property(e => e.ResolutionDueDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("Resolution_Due_DTM");
+            entity.Property(e => e.ResolvedDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("Resolved_DTM");
+            entity.Property(e => e.ResponseDueDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("Response_Due_DTM");
+            entity.Property(e => e.SlaSeverityLevelId).HasColumnName("SLA_Severity_Level_Id");
+            entity.Property(e => e.TicketId).HasColumnName("Ticket_Id");
+
+            entity.HasOne(d => d.IdNavigation).WithOne(p => p.TicketSlaTracking)
+                .HasForeignKey<TicketSlaTracking>(d => d.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ticket_sla_tracking_sla_severity_levels");
+
+            entity.HasOne(d => d.Ticket).WithMany(p => p.TicketSlaTrackings)
+                .HasForeignKey(d => d.TicketId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ticket_sla_tracking_ticket");
         });
 
         modelBuilder.Entity<TicketStatus>(entity =>
@@ -287,6 +381,16 @@ public partial class slaware_dataContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("Last_Name");
             entity.Property(e => e.RoleId).HasColumnName("Role_Id");
+
+            entity.HasOne(d => d.ClientTier).WithMany(p => p.Users)
+                .HasForeignKey(d => d.ClientTierId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_users_client_tiers");
+
+            entity.HasOne(d => d.Role).WithMany(p => p.Users)
+                .HasForeignKey(d => d.RoleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_users_roles");
         });
 
         OnModelCreatingPartial(modelBuilder);

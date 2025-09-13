@@ -188,7 +188,8 @@
               "RelativeToolTip": "SLAwareApi\\Entities\\SLAware\\slaware_dataContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T22:16:21.001Z"
+              "WhenOpened": "2025-09-10T22:16:21.001Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -200,7 +201,8 @@
               "RelativeToolTip": "SLAwareApi\\Models\\SLAware\\SlaSeverity\\SlaSeverityModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T23:26:38.503Z"
+              "WhenOpened": "2025-09-10T23:26:38.503Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",

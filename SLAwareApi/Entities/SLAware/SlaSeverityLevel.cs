@@ -16,4 +16,8 @@ public partial class SlaSeverityLevel
     public DateTime CreatedAt { get; set; }
 
     public string CreatedBy { get; set; } = null!;
+
+    public virtual ICollection<SlaSeverityLevelRule> SlaSeverityLevelRules { get; set; } = new List<SlaSeverityLevelRule>();
+
+    public virtual TicketSlaTracking? TicketSlaTracking { get; set; }
 }

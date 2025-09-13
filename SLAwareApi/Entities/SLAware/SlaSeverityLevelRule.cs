@@ -18,4 +18,6 @@ public partial class SlaSeverityLevelRule
     public DateTime CreatedAt { get; set; }
 
     public string CreatedBy { get; set; } = null!;
+
+    public virtual SlaSeverityLevel SlaSeverityLevel { get; set; } = null!;
 }

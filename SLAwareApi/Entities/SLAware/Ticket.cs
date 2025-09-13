@@ -38,4 +38,12 @@ public partial class Ticket
     public bool? IsResolutionSlaBreach { get; set; }
 
     public DateTime CreatedAt { get; set; }
+
+    public virtual ICollection<TicketActivityLog> TicketActivityLogs { get; set; } = new List<TicketActivityLog>();
+
+    public virtual ICollection<TicketMessage> TicketMessages { get; set; } = new List<TicketMessage>();
+
+    public virtual ICollection<TicketNotification> TicketNotifications { get; set; } = new List<TicketNotification>();
+
+    public virtual ICollection<TicketSlaTracking> TicketSlaTrackings { get; set; } = new List<TicketSlaTracking>();
 }
