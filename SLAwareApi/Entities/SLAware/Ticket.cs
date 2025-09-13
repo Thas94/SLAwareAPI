@@ -15,27 +15,13 @@ public partial class Ticket
 
     public long TicketStatusId { get; set; }
 
+    public long TicketSeverityLevelId { get; set; }
+
     public long CreatedById { get; set; }
 
     public long? AssignedToId { get; set; }
 
-    public DateTime ResponseDueDtm { get; set; }
-
-    public DateTime ResolutionDueDtm { get; set; }
-
-    public DateTime? RemainingResponseDueDtm { get; set; }
-
-    public DateTime? RemainingResolutionDueDtm { get; set; }
-
-    public DateTime? PausedDtm { get; set; }
-
-    public DateTime? ResolvedDtm { get; set; }
-
-    public long SlaSeverityLevelId { get; set; }
-
-    public bool? IsResponseSlaBreach { get; set; }
-
-    public bool? IsResolutionSlaBreach { get; set; }
+    public long SubCategoryId { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
@@ -44,6 +30,8 @@ public partial class Ticket
     public virtual ICollection<TicketMessage> TicketMessages { get; set; } = new List<TicketMessage>();
 
     public virtual ICollection<TicketNotification> TicketNotifications { get; set; } = new List<TicketNotification>();
+
+    public virtual TicketSeverityLevel TicketSeverityLevel { get; set; } = null!;
 
     public virtual ICollection<TicketSlaTracking> TicketSlaTrackings { get; set; } = new List<TicketSlaTracking>();
 }

@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "SLAwareApi.Controllers.SLAware.TicketController",
+    "Method": "CreateTicket",
+    "RelativePath": "Ticket/CreateTicket",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createtTicket",
+        "Type": "SLAwareApi.Models.SLAware.CreatetTicketModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "SLAwareApi.Controllers.SLAware.UserController",
     "Method": "Login",
     "RelativePath": "User/Login",

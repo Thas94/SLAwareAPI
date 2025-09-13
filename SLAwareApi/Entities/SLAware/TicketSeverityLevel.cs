@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SLAwareApi.Entities.SLAware;
 
-public partial class SlaSeverityLevel
+public partial class TicketSeverityLevel
 {
     public long Id { get; set; }
 
@@ -21,7 +21,5 @@ public partial class SlaSeverityLevel
 
     public string? UpdatedBy { get; set; }
 
-    public virtual ICollection<SlaSeverityLevelRule> SlaSeverityLevelRules { get; set; } = new List<SlaSeverityLevelRule>();
-
-    public virtual TicketSlaTracking? TicketSlaTracking { get; set; }
+    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 }

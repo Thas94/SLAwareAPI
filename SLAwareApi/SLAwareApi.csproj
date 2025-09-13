@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Entities\SLAware\" />
-    <Folder Include="Models\SLAware\Ticket\" />
   </ItemGroup>
 
 </Project>

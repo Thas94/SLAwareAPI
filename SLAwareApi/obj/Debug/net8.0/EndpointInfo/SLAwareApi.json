@@ -5,6 +5,54 @@
     "version": "1.0"
   },
   "paths": {
+    "/Ticket/CreateTicket": {
+      "post": {
+        "tags": [
+          "Ticket"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatetTicketModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatetTicketModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatetTicketModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/User/Login": {
       "get": {
         "tags": [
@@ -89,6 +137,51 @@
           },
           "type": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreatetTicketModel": {
+        "type": "object",
+        "properties": {
+          "createById": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "assignedToId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ticketStatusId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ticketSeverityLevelId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "subCategorylId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "subject": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "slaSeverities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SlaSeverityModel"
+            },
             "nullable": true
           }
         },
