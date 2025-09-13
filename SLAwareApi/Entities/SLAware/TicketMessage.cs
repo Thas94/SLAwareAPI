@@ -13,5 +13,7 @@ public partial class TicketMessage
 
     public DateTime CreatedAt { get; set; }
 
-    public DateTime? UpdatedAt { get; set; }
+    public DateTime? RepliedAt { get; set; }
+
+    public bool? IsRead { get; set; }
 }

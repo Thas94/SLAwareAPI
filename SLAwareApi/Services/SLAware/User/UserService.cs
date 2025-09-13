@@ -33,6 +33,7 @@ namespace SLAwareApi.Services.SLAware
                                                  where clientSeverityLevel.ClientTierId == usr.ClientTierId
                                                  select new SlaSeverityModel
                                                  {
+                                                     Id = severityLevel.Id,
                                                      SeverityLevels = severityLevel.Name,
                                                      InitialResponseHours = severityLevelRule.InitialResponseHours,
                                                      TargetResolutionHours = severityLevelRule.TargetResolutionHours,
