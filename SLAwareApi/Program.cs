@@ -24,6 +24,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<ISlaSeverityService, SlaSeverityService>();
 builder.Services.AddScoped<slaware_dataContext>();
 
 

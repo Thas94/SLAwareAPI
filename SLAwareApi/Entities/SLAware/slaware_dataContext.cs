@@ -349,6 +349,9 @@ public partial class slaware_dataContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("Created_At");
+            entity.Property(e => e.FirstResponseAt)
+                .HasColumnType("datetime")
+                .HasColumnName("First_Response_At");
             entity.Property(e => e.IsResolutionSlaBreach)
                 .HasColumnType("datetime")
                 .HasColumnName("IsResolution_SLA_Breach");

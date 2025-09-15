@@ -6,8 +6,11 @@ namespace SLAwareApi.Services.SLAware
 {
     public class TicketService : SLAwareBaseService, ITicketService
     {
-        public TicketService(slaware_dataContext slaware_DataContext) : base(slaware_DataContext)
-        { }
+        private readonly ISlaSeverityService _slaSeverityService;
+        public TicketService(ISlaSeverityService slaSeverityService, slaware_dataContext slaware_DataContext) : base(slaware_DataContext)
+        { 
+            _slaSeverityService = slaSeverityService;
+        }
 
         public async Task<bool> CreateTicket(CreatetTicketModel createtTicket)
         {
@@ -39,8 +42,8 @@ namespace SLAwareApi.Services.SLAware
                     var track = new TicketSlaTracking();
                     track.TicketId = ticketModel.Id;
                     track.SlaSeverityLevelId = sev.Id;
-                    track.ResponseDueDtm = DateTime.Now.AddHours(sev.InitialResponseHours);
-                    track.ResolutionDueDtm = DateTime.Now.AddHours(sev.TargetResolutionHours);
+                    track.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(ticketModel.CreatedAt, new TimeSpan((int)sev.InitialResponseHours, 0, 0));
+                    track.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(ticketModel.CreatedAt, new TimeSpan((int)sev.TargetResolutionHours, 0, 0));
                     track.CreatedAt = DateTime.Now;
                     _slaware_DataContext.TicketSlaTrackings.Add(track);
                     //_slaware_DataContext.SaveChanges();

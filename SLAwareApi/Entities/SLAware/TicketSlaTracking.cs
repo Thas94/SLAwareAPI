@@ -15,6 +15,8 @@ public partial class TicketSlaTracking
 
     public DateTime ResolutionDueDtm { get; set; }
 
+    public DateTime? FirstResponseAt { get; set; }
+
     public DateTime? RemainingResponseDueDtm { get; set; }
 
     public DateTime? RemainingResolutionDueDtm { get; set; }
