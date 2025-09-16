@@ -176,13 +176,6 @@
           "description": {
             "type": "string",
             "nullable": true
-          },
-          "slaSeverities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SlaSeverityModel"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false

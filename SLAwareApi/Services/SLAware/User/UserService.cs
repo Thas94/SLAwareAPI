@@ -13,11 +13,6 @@ namespace SLAwareApi.Services.SLAware
 {
     public class UserService : ClinicalServiceBase, IUserService
     {
-        //public UserService(slaware_dataContext slaware_DataContext) : base(slaware_DataContext)
-        //{
-
-        //}
-
         private readonly EntityHelper _entityHelper;
 
         public UserService(EntityHelper entityHelper, TftAppContext context, slaware_dataContext slawareContext, IMapper mapper) : base(context, slawareContext, mapper)
@@ -64,8 +59,8 @@ namespace SLAwareApi.Services.SLAware
                              {
                                  TierId = tier.Id,
                                  Tier = tier.Name,
-                                 CommunicationTypes = (from comms in _slaware_DataContext.CommunicationTypes
-                                                       join commsType in _slaware_DataContext.ClientTierCommunicationTypes on comms.Id equals commsType.CommunicationTypeId
+                                 CommunicationTypes = (from comms in _slawareContext.CommunicationTypes
+                                                       join commsType in _slawareContext.ClientTierCommunicationTypes on comms.Id equals commsType.CommunicationTypeId
                                                        where commsType.ClientTierId == user.ClientTierId
                                                        select new CommunicationTypeModel
                                                        {

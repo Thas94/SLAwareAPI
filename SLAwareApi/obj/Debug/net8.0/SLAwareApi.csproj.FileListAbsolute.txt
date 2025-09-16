@@ -379,3 +379,5 @@ C:\Users\trent\Source\Repos\SLAwareAPI\SLAwareApi\obj\Debug\net8.0\SLAwareApi.ge
 C:\Users\trent\Source\Repos\SLAwareAPI\SLAwareApi\obj\Debug\net8.0\ref\SLAwareApi.dll
 C:\Users\trent\Source\Repos\SLAwareAPI\SLAwareApi\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\trent\Source\Repos\SLAwareAPI\SLAwareApi\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Websites\MyProjects\Nuxt3\SLAware\SLAwareAPI\SLAwareApi\bin\Debug\net8.0\AutoMapper.dll
+C:\Websites\MyProjects\Nuxt3\SLAware\SLAwareAPI\SLAwareApi\bin\Debug\net8.0\Newtonsoft.Json.dll

@@ -22,67 +22,15 @@ namespace SLAwareApi.Services.SLAware
 
         }
 
-
-        //public async Task<bool> CreateTicket(CreatetTicketModel createtTicket)
-        //{
-        //    try
-        //    {
-        //        //Create ticket
-        //        var ticketModel = new Ticket();
-        //        ticketModel.Subject = createtTicket.Subject;
-        //        ticketModel.Description = createtTicket.Description;
-        //        ticketModel.TicketStatusId = createtTicket.TicketStatusId;
-        //        ticketModel.TicketSeverityLevelId = createtTicket.TicketSeverityLevelId;
-        //        ticketModel.CreatedById = createtTicket.CreateById;
-        //        ticketModel.CreatedAt = DateTime.Now;
-        //        ticketModel.SubCategoryId = createtTicket.SubCategorylId;
-        //        _slawareContext.Tickets.Add(ticketModel);
-        //        //_slaware_DataContext.SaveChanges();
-
-        //        //Create message
-        //        var messageModel = new TicketMessage();
-        //        messageModel.TicketId = ticketModel.Id;
-        //        messageModel.MessageContent = createtTicket.Message;
-        //        messageModel.CreatedAt = DateTime.Now;
-        //        _slawareContext.TicketMessages.Add(messageModel);
-        //        //_slaware_DataContext.SaveChanges();
-
-        //        //SLA tracking
-        //        foreach (var sev in createtTicket.SlaSeverities)
-        //        {
-        //            var track = new TicketSlaTracking();
-        //            track.TicketId = ticketModel.Id;
-        //            track.SlaSeverityLevelId = sev.Id;
-        //            track.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(ticketModel.CreatedAt, new TimeSpan((int)sev.InitialResponseHours, 0, 0));
-        //            track.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(ticketModel.CreatedAt, new TimeSpan((int)sev.TargetResolutionHours, 0, 0));
-        //            track.CreatedAt = DateTime.Now;
-        //            _slawareContext.TicketSlaTrackings.Add(track);
-        //            //_slaware_DataContext.SaveChanges();
-        //        }
-
-
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-        //    return false;
-        //}
-
-
-
         public async Task<ReturnModel> CreateTicket(CreatetTicketModel createtTicket)
         {
 
             ReturnModel Result = new ReturnModel();
 
-
-
             try
             {
-                var tag = _slaware_DataContext.TicketTags.FirstOrDefault(x => x.Id == createtTicket.TagId);
-                var severity = _slaware_DataContext.SlaSeverityLevels.FirstOrDefault(x => x.Id == tag.SlaSeverityLevelId);
+                var tag = _slawareContext.TicketTags.FirstOrDefault(x => x.Id == createtTicket.TagId);
+                var severity = _slawareContext.SlaSeverityLevels.FirstOrDefault(x => x.Id == tag.SlaSeverityLevelId);
 
                 //Create ticket
                 var ticketModel = new Ticket();
@@ -95,8 +43,8 @@ namespace SLAwareApi.Services.SLAware
                 ticketModel.TicketCategoryId = createtTicket.CategoryId;
                 ticketModel.ApplicationId = createtTicket.ApplicationId;
                 ticketModel.TicketSubCategoryId = createtTicket.SubCategorylId;
-                _slaware_DataContext.Tickets.Add(ticketModel);
-                _slaware_DataContext.SaveChanges();
+                _slawareContext.Tickets.Add(ticketModel);
+                _slawareContext.SaveChanges();
 
                 //SLA tracking
                 var track = new TicketSlaTracking();
@@ -108,8 +56,8 @@ namespace SLAwareApi.Services.SLAware
                 track.PausedDtm = !IsWorkingHours(ticketModel.CreatedAt) ? ticketModel.CreatedAt : null;
                 track.RemainingResponseDueTime = track.PausedDtm.HasValue ? TimeOnly.FromTimeSpan(new TimeSpan((int)severity.InitialReponseHours, 0, 0)) : null;
                 track.RemainingResolutionDueTime = track.PausedDtm.HasValue ? TimeOnly.FromTimeSpan(new TimeSpan((int)severity.TargetResolutionHours, 0, 0)) : null;
-                _slaware_DataContext.TicketSlaTrackings.Add(track);
-                _slaware_DataContext.SaveChanges();
+                _slawareContext.TicketSlaTrackings.Add(track);
+                _slawareContext.SaveChanges();
 
                 if (ticketModel != null)
                 {
