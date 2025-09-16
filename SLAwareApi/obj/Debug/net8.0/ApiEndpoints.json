@@ -15,7 +15,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Boolean",
+        "Type": "SLAwareApi.Models.TFTApp.GlobalsModels\u002BReturnModel",
         "MediaTypes": [
           "text/plain",
           "application/json",

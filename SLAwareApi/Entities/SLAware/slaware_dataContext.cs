@@ -6,6 +6,11 @@ namespace SLAwareApi.Entities.SLAware;
 
 public partial class slaware_dataContext : DbContext
 {
+
+
+    public slaware_dataContext()
+    {
+    }
     public slaware_dataContext(DbContextOptions<slaware_dataContext> options)
         : base(options)
     {

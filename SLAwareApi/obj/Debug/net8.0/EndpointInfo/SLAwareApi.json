@@ -35,17 +35,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/ReturnModel"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/ReturnModel"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/ReturnModel"
                 }
               }
             }
@@ -182,6 +182,22 @@
             "items": {
               "$ref": "#/components/schemas/SlaSeverityModel"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReturnModel": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "result": {
+            "nullable": true
+          },
+          "error": {
+            "type": "string",
             "nullable": true
           }
         },
