@@ -153,7 +153,11 @@
           "ticketStatusId": {
             "$ref": "#/components/schemas/TicketStatus"
           },
-          "categorylId": {
+          "categoryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "applicationId": {
             "type": "integer",
             "format": "int64"
           },
@@ -170,10 +174,6 @@
             "nullable": true
           },
           "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "message": {
             "type": "string",
             "nullable": true
           }

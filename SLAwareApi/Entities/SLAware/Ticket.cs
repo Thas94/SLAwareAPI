@@ -21,6 +21,8 @@ public partial class Ticket
 
     public long? AssignedToId { get; set; }
 
+    public long ApplicationId { get; set; }
+
     public long TicketCategoryId { get; set; }
 
     public long TicketSubCategoryId { get; set; }

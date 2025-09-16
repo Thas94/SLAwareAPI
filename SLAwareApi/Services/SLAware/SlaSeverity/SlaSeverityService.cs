@@ -16,7 +16,7 @@ namespace SLAwareApi.Services.SLAware
             var current = start;
             var remaining = slaDuration;
 
-            try 
+            try
             {
                 //check if current is outside working hours
                 if (current.TimeOfDay < WorkStart)

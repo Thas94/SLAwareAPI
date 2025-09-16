@@ -27,17 +27,10 @@ namespace SLAwareApi.Services.SLAware
                 ticketModel.TicketSeverityLevelId = severity.Id;
                 ticketModel.CreatedById = createtTicket.CreateById;
                 ticketModel.CreatedAt = DateTime.Now;
-                ticketModel.TicketCategoryId = createtTicket.CategorylId;
+                ticketModel.TicketCategoryId = createtTicket.CategoryId;
+                //ticketModel.ApplicationId = createtTicket.ApplicationId;
                 ticketModel.TicketSubCategoryId = createtTicket.SubCategorylId;
                 _slaware_DataContext.Tickets.Add(ticketModel);
-                //_slaware_DataContext.SaveChanges();
-
-                //Create message
-                var messageModel = new TicketMessage();
-                messageModel.TicketId = ticketModel.Id;
-                messageModel.MessageContent = createtTicket.Message;
-                messageModel.CreatedAt = DateTime.Now;
-                _slaware_DataContext.TicketMessages.Add(messageModel);
                 //_slaware_DataContext.SaveChanges();
 
                 //SLA tracking

@@ -197,6 +197,7 @@ public partial class slaware_dataContext : DbContext
             entity.ToTable("ticket");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ApplicationId).HasColumnName("application_id");
             entity.Property(e => e.AssignedToId).HasColumnName("assigned_to_id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
@@ -458,9 +459,7 @@ public partial class slaware_dataContext : DbContext
         {
             entity.ToTable("ticket_tags");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Active).HasColumnName("active");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
