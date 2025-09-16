@@ -13,8 +13,9 @@
 
     public class ClientModel
     {
+        public long TierId { get; set; }
         public string Tier { get; set; }
-        public List<SlaSeverityModel> SlaSeverities { get; set; }
+        //public List<SlaSeverityModel> SlaSeverities { get; set; }
         public List<CommunicationTypeModel> CommunicationTypes { get; set; }
     }
 

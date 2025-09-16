@@ -35,7 +35,5 @@ public partial class Ticket
 
     public virtual ICollection<TicketNotification> TicketNotifications { get; set; } = new List<TicketNotification>();
 
-    public virtual TicketSeverityLevel TicketSeverityLevel { get; set; } = null!;
-
     public virtual ICollection<TicketSlaTracking> TicketSlaTrackings { get; set; } = new List<TicketSlaTracking>();
 }
