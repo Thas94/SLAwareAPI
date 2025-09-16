@@ -1,0 +1,18 @@
+﻿# Ignore Visual Studio user-specific files
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+
+# Others
+*.cache
+*.dbmdl
+*.jfm
+*.pdb
+*.opendb
+

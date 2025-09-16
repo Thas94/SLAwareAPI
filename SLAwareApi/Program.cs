@@ -1,19 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using SLAwareApi.Entities.SLAware;
+using SLAwareApi.Entities.TFTAPPEntities;
 using SLAwareApi.Interfaces.SLAware;
 using SLAwareApi.Services.SLAware;
+using TFTShuttiAPI.TFTEntities.Helpers;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 
-var connectionString = builder.Configuration.GetConnectionString("SLAware");
-builder.Services.AddDbContext<slaware_dataContext>(options =>
-{
-    options.UseSqlServer(connectionString, sqlServerOptionsAction: sqloptions =>
-    {
-        sqloptions.EnableRetryOnFailure(maxRetryCount: 60, maxRetryDelay: TimeSpan.FromSeconds(5), errorNumbersToAdd: null);
-        sqloptions.MaxBatchSize(20);
-    });
-});
 
 // Add services to the container.
 
@@ -22,10 +20,50 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAutoMapper(typeof(Program));
+
+
+var connectionString = builder.Configuration.GetConnectionString("SLAware");
+builder.Services.AddDbContext<slaware_dataContext>(options =>
+{
+    options.UseSqlServer(config["ConnectionStrings:SLAware"], sqlServerOptionsAction: sqloptions =>
+    {
+        sqloptions.EnableRetryOnFailure(maxRetryCount: 60, maxRetryDelay: TimeSpan.FromSeconds(5), errorNumbersToAdd: null);
+        sqloptions.MaxBatchSize(20);
+    });
+});
+
+
+builder.Services.AddEntityFrameworkSqlServer().AddDbContext<TftAppContext>(options =>
+{
+    options.UseSqlServer(config["ConnectionStrings:TFTAPPDatabase"], sqlServerOptionsAction: sqloptions =>
+    {
+        sqloptions.EnableRetryOnFailure(maxRetryCount: 120, maxRetryDelay: TimeSpan.FromSeconds(15), errorNumbersToAdd: null);
+        sqloptions.MaxBatchSize(20);
+        sqloptions.CommandTimeout(300);
+    });
+});
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ISlaSeverityService, SlaSeverityService>();
+builder.Services.AddScoped<IGlobalService, GlobalService>();
 builder.Services.AddScoped<slaware_dataContext>();
+
+builder.Services.AddSingleton<ClinicalEntityHelper>();
+builder.Services.AddSingleton<EntityHelper>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("TFTCors",
+            builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+
+            });
+});
 
 
 var app = builder.Build();
@@ -36,6 +74,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("TFTCors");
+
 
 app.UseHttpsRedirection();
 

@@ -1,16 +1,28 @@
-﻿using System.Data;
+﻿using AutoMapper;
 using SLAwareApi.Entities.SLAware;
+using SLAwareApi.Entities.TFTAPPEntities;
 using SLAwareApi.Interfaces.SLAware;
 using SLAwareApi.Models.SLAware;
+using SLAwareApi.Services.SLAware.Base;
+using System.Data;
+using TFTShuttiAPI.TFTEntities.Helpers;
 using static SLAwareApi.Enums.Enums;
+using User = SLAwareApi.Entities.SLAware.User;
 
 namespace SLAwareApi.Services.SLAware
 {
-    public class UserService : SLAwareBaseService, IUserService
+    public class UserService : ClinicalServiceBase, IUserService
     {
-        public UserService(slaware_dataContext slaware_DataContext) : base(slaware_DataContext)
-        {
+        //public UserService(slaware_dataContext slaware_DataContext) : base(slaware_DataContext)
+        //{
 
+        //}
+
+        private readonly EntityHelper _entityHelper;
+
+        public UserService(EntityHelper entityHelper, TftAppContext context, slaware_dataContext slawareContext, IMapper mapper) : base(context, slawareContext, mapper)
+        {
+            _entityHelper = entityHelper;
         }
 
         public async Task<UserModel> Login(string firstname)
@@ -18,7 +30,7 @@ namespace SLAwareApi.Services.SLAware
             var user = new UserModel();
             try
             {
-                if(_slaware_DataContext.Users.FirstOrDefault(x => x.FirstName == firstname) is { } usrr)
+                if(_slawareContext.Users.FirstOrDefault(x => x.FirstName == firstname) is { } usrr)
                 {
                     switch (usrr.RoleId)
                     {
@@ -43,8 +55,8 @@ namespace SLAwareApi.Services.SLAware
             var model = new UserModel();
             try
             {
-                model = (from role in _slaware_DataContext.Roles
-                         join tier in _slaware_DataContext.ClientTiers on user.ClientTierId equals tier.Id
+                model = (from role in _slawareContext.Roles
+                         join tier in _slawareContext.ClientTiers on user.ClientTierId equals tier.Id
                          where role.Id == user.RoleId
                          select new UserModel
                          {
