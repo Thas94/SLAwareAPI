@@ -9,5 +9,15 @@
             HelpDesk = 3,
             Agent = 4
         }
+
+        public enum TicketStatus
+        {
+            New = 1,
+            Assigned = 2,
+            InProgress = 3,
+            AwaitingFeedback = 4,
+            Resolved = 5,
+            Closed = 6,
+        }
     }
 }

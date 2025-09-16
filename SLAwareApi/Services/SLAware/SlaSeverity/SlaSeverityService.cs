@@ -51,7 +51,7 @@ namespace SLAwareApi.Services.SLAware
 
         private bool IsWorkingDay(DateTime date)
         {
-            return date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday;
+            return date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday ? true : false;
         }
     }
 }
