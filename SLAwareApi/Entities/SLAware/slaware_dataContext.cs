@@ -205,13 +205,19 @@ public partial class slaware_dataContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
             entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.SubCategoryId).HasColumnName("sub_category_id");
             entity.Property(e => e.Subject)
                 .HasMaxLength(50)
                 .HasColumnName("subject");
+            entity.Property(e => e.TicketCategoryId).HasColumnName("ticket_category_id");
             entity.Property(e => e.TicketNumber).HasColumnName("ticket_number");
             entity.Property(e => e.TicketSeverityLevelId).HasColumnName("ticket_severity_level_id");
             entity.Property(e => e.TicketStatusId).HasColumnName("ticket_status_id");
+            entity.Property(e => e.TicketSubCategoryId).HasColumnName("ticket_sub_category_id");
+
+            entity.HasOne(d => d.TicketCategory).WithMany(p => p.Tickets)
+                .HasForeignKey(d => d.TicketCategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ticket_ticket_category");
 
             entity.HasOne(d => d.TicketSeverityLevel).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.TicketSeverityLevelId)

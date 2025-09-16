@@ -96,7 +96,7 @@
               "RelativeDocumentMoniker": "SLAwareApi\\Services\\SLAware\\User\\UserService.cs",
               "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareApi\\SLAwareApi\\Services\\SLAware\\User\\UserService.cs",
               "RelativeToolTip": "SLAwareApi\\Services\\SLAware\\User\\UserService.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAUwE8AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAACgAAAAAAAAAAAAywEsAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-10T22:26:44.031Z",
               "IsPinned": true,
@@ -126,7 +126,8 @@
               "ViewState": "AgIAAB4AAAAAAAAAAAAmwDEAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-13T13:00:41.102Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
