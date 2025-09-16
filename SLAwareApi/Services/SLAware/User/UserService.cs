@@ -63,17 +63,17 @@ namespace SLAwareApi.Services.SLAware
                              Client = new ClientModel
                              {
                                  Tier = tier.Name,
-                                 SlaSeverities = (from clientSeverityLevel in _slawareContext.ClientTierSeverityLevels
-                                                  join severityLevelRule in _slawareContext.SlaSeverityLevelRules on clientSeverityLevel.SlaSeverityLevelId equals severityLevelRule.SlaSeverityLevelId
-                                                  join severityLevel in _slawareContext.SlaSeverityLevels on severityLevelRule.SlaSeverityLevelId equals severityLevel.Id
-                                                  where clientSeverityLevel.ClientTierId == user.ClientTierId
-                                                  select new SlaSeverityModel
-                                                  {
-                                                      Id = severityLevel.Id,
-                                                      SeverityLevels = severityLevel.Name,
-                                                      InitialResponseHours = severityLevelRule.InitialResponseHours,
-                                                      TargetResolutionHours = severityLevelRule.TargetResolutionHours,
-                                                  }).ToList(),
+                                 //SlaSeverities = (from clientSeverityLevel in _slawareContext.ClientTierSeverityLevels
+                                 //                 join severityLevelRule in _slawareContext.SlaSeverityLevelRules on clientSeverityLevel.SlaSeverityLevelId equals severityLevelRule.SlaSeverityLevelId
+                                 //                 join severityLevel in _slawareContext.SlaSeverityLevels on severityLevelRule.SlaSeverityLevelId equals severityLevel.Id
+                                 //                 where clientSeverityLevel.ClientTierId == user.ClientTierId
+                                 //                 select new SlaSeverityModel
+                                 //                 {
+                                 //                     Id = severityLevel.Id,
+                                 //                     SeverityLevels = severityLevel.Name,
+                                 //                     InitialResponseHours = severityLevelRule.InitialResponseHours,
+                                 //                     TargetResolutionHours = severityLevelRule.TargetResolutionHours,
+                                 //                 }).ToList(),
                                  CommunicationTypes = (from comms in _slawareContext.CommunicationTypes
                                                        join commsType in _slawareContext.ClientTierCommunicationTypes on comms.Id equals commsType.CommunicationTypeId
                                                        where commsType.ClientTierId == user.ClientTierId
