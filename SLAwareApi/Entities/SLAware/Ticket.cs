@@ -31,8 +31,6 @@ public partial class Ticket
 
     public virtual ICollection<TicketActivityLog> TicketActivityLogs { get; set; } = new List<TicketActivityLog>();
 
-    public virtual TicketCategory TicketCategory { get; set; } = null!;
-
     public virtual ICollection<TicketMessage> TicketMessages { get; set; } = new List<TicketMessage>();
 
     public virtual ICollection<TicketNotification> TicketNotifications { get; set; } = new List<TicketNotification>();

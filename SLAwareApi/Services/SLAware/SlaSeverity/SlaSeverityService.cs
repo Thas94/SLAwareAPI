@@ -6,8 +6,6 @@ namespace SLAwareApi.Services.SLAware
 {
     public class SlaSeverityService : SLAwareBaseService, ISlaSeverityService
     {
-        public static readonly TimeSpan WorkStart = new TimeSpan(8, 30, 0);
-        public static readonly TimeSpan WorkEnd = new TimeSpan(17, 0, 0);
         public SlaSeverityService(slaware_dataContext slaware_DataContext) : base(slaware_DataContext)
         { }
 
@@ -19,10 +17,10 @@ namespace SLAwareApi.Services.SLAware
             try
             {
                 //check if current is outside working hours
-                if (current.TimeOfDay < WorkStart)
-                    current = current.Date.Add(WorkStart);
-                else if (current.TimeOfDay >= WorkEnd)
-                    current = current.Date.AddDays(1).Add(WorkEnd);
+                //if (current.TimeOfDay < WorkStart)
+                //    current = current.Date.Add(WorkStart);
+                //else if (current.TimeOfDay >= WorkEnd)
+                //    current = current.Date.AddDays(1).Add(WorkEnd);
 
                 while (remaining > TimeSpan.Zero)
                 {
@@ -54,9 +52,5 @@ namespace SLAwareApi.Services.SLAware
             return current;
         }
 
-        private bool IsWorkingDay(DateTime date)
-        {
-            return date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday ? true : false;
-        }
     }
 }
