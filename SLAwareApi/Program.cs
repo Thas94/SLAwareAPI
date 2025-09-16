@@ -23,7 +23,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
 
 
-
 var connectionString = builder.Configuration.GetConnectionString("SLAware");
 builder.Services.AddDbContext<slaware_dataContext>(options =>
 {
