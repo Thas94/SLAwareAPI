@@ -31,6 +31,25 @@ namespace SLAwareApi.Models.SLAware.Ticket
 
           
         }
+        public  class UpdateTicketRequestModel
+        {
+            public long Id { get; set; }
+
+            public long TicketNumber { get; set; }
+
+            public string Subject { get; set; } = null!;
+
+            public string Description { get; set; } = null!;
+
+            public string TicketStatus { get; set; }
+
+            public long TicketSeverityLevelId { get; set; }
+            public long loggedInUserId { get; set; }
+
+          
+
+          
+        }
 
     }
 }

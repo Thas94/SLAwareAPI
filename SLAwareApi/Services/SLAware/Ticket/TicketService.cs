@@ -276,7 +276,9 @@ namespace SLAwareApi.Services.SLAware
                     //Populating the application model to be updated    
 
 
-                    _slawareContext.Tickets.Remove(exists);  // mark entity for deletion
+                    //_slawareContext.Tickets.Remove(exists);  // mark entity for deletion
+                    exists.IsActive = false;
+
                     _slawareContext.SaveChanges();
 
                     Result.Status = true;
@@ -302,149 +304,78 @@ namespace SLAwareApi.Services.SLAware
         }
 
 
-        public async Task<ReturnModel> CreateTicketStatus(CreateTicketStatusRequestModel RequestModel)
-        {
+      
+        //public async Task<ReturnModel> UpdateTicket(long id, UpdateTicketRequestModel RequestModel)
+        //{
 
-            ReturnModel Result = new ReturnModel();
-            TicketStatusReturnModel ticketStatusReturn = null;
+        //    ReturnModel Result = new ReturnModel();
+        //    TicketStatusReturnModel ticketStatusReturn = null;
 
-            try
-            {
+        //    try
+        //    {
 
-                //Check to see if the site already exists
-                var exists = _slawareContext.TicketStatuses.Where(s => s.Name == RequestModel.Name).FirstOrDefault();
+        //        //Check to see if the application already exists
+        //        var exists = _slawareContext.Tickets.Where(ts => ts.Id == id).FirstOrDefault();
 
-                if (exists != null)
-                {
-                    Result.Status = false;
-                    Result.Result = ticketStatusReturn;
-                    Result.error = $"The status with the name :{RequestModel.Name} already exists!";
-                }
-                else
-                {
-                    //Populatinges the Site model to be inserted
-                    TicketStatus NewTicketStatus = new TicketStatus()
-                    {
+        //        if (exists == null)
+        //        {
+        //            Result.Status = false;
+        //            Result.Result = ticketStatusReturn;
+        //            Result.error = $"Ticket ID does not exist!";
+        //        }
+        //        else
+        //        {
+        //            //Populating the application model to be updated    
+        //            // Updating Name
+        //            if (!string.IsNullOrWhiteSpace(RequestModel.Name))
+        //            {
+        //                exists.Name = RequestModel.Name;
+        //            }
 
-                        Name = RequestModel.Name,
-                        Description = RequestModel.Description,
-                        Active = RequestModel.Active,
-                        CreatedAt = DateTime.Now,
-                        CreatedBy = _context.Users.Where(u => u.Id == RequestModel.loggedInUser).Select(u => u.FirstName).FirstOrDefault(),
-                        UpdatedAt = DateTime.Now,
-                        UpdatedBy = _context.Users.Where(u => u.Id == RequestModel.loggedInUser).Select(u => u.FirstName).FirstOrDefault()
-                    };
+        //            // Updating IsActive
+        //            if (RequestModel.Active.HasValue)
+        //            {
+        //                exists.Active = RequestModel.Active.Value;
+        //            }
 
-                    _slawareContext.TicketStatuses.Add(NewTicketStatus);
-                    _context.SaveChanges();
-
-                    ticketStatusReturn = new TicketStatusReturnModel()
-                    {
-                        Id = NewTicketStatus.Id,
-                        Name = NewTicketStatus.Name,
-                        Description = NewTicketStatus.Description,
-                        Active = NewTicketStatus.Active,
-
-                    };
-
-                    Result.Status = true;
-                    Result.Result = ticketStatusReturn;
-                    Result.error = null;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Result.Result = null;
-                Result.Status = false;
-                Result.error = ex.Message.ToString();
-
-                //Gathering All the Error Details to be saved
-                var Err = new ErrorTemplate
-                {
-                    ErrCallingFunction = "Ticket Status Service: Create new Ticket Status",
-                    ErrErrorMessage = ex.Message.ToString(),
-                    ErrStacktrace = ex.StackTrace.ToString(),
-                };
-                await _globalService.LogError(Err);
-            }
-            return Result;
+        //            // Updating Description
+        //            if (!string.IsNullOrWhiteSpace(RequestModel.Description))
+        //            {
+        //                exists.Description = RequestModel.Description;
+        //            }
 
 
-        }
+        //            _slawareContext.SaveChanges();
+
+        //            ticketStatusReturn = _slawareContext.TicketStatuses.Where(x => x.Id == id).Select(x => new TicketStatusReturnModel()
+        //            {
+        //                Id = x.Id,
+        //                Description = x.Description,
+        //                Name = x.Name,
+        //                Active = x.Active,
+        //            }).FirstOrDefault();
+
+        //            Result.Status = true;
+        //            Result.Result = ticketStatusReturn;
+        //            Result.error = null;
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //Gathering All the Error Details to be saved
+        //        var Err = new ErrorTemplate
+        //        {
+        //            ErrCallingFunction = "Ticket Status Service: Update Ticket Status",
+        //            ErrErrorMessage = ex.Message.ToString(),
+        //            ErrStacktrace = ex.StackTrace.ToString(),
+        //        };
+        //        await _globalService.LogError(Err);
+        //    }
+        //    return Result;
 
 
-        public async Task<ReturnModel> UpdateTicketStatus(long id, UpdateTicketStatusRequestModel RequestModel)
-        {
-
-            ReturnModel Result = new ReturnModel();
-            TicketStatusReturnModel ticketStatusReturn = null;
-
-            try
-            {
-
-                //Check to see if the application already exists
-                var exists = _slawareContext.TicketStatuses.Where(ts => ts.Id == id).FirstOrDefault();
-
-                if (exists == null)
-                {
-                    Result.Status = false;
-                    Result.Result = ticketStatusReturn;
-                    Result.error = $"Status ID does not exist!";
-                }
-                else
-                {
-                    //Populating the application model to be updated    
-                    // Updating Name
-                    if (!string.IsNullOrWhiteSpace(RequestModel.Name))
-                    {
-                        exists.Name = RequestModel.Name;
-                    }
-
-                    // Updating IsActive
-                    if (RequestModel.Active.HasValue)
-                    {
-                        exists.Active = RequestModel.Active.Value;
-                    }
-
-                    // Updating Description
-                    if (!string.IsNullOrWhiteSpace(RequestModel.Description))
-                    {
-                        exists.Description = RequestModel.Description;
-                    }
-
-
-                    _slawareContext.SaveChanges();
-
-                    ticketStatusReturn = _slawareContext.TicketStatuses.Where(x => x.Id == id).Select(x => new TicketStatusReturnModel()
-                    {
-                        Id = x.Id,
-                        Description = x.Description,
-                        Name = x.Name,
-                        Active = x.Active,
-                    }).FirstOrDefault();
-
-                    Result.Status = true;
-                    Result.Result = ticketStatusReturn;
-                    Result.error = null;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                //Gathering All the Error Details to be saved
-                var Err = new ErrorTemplate
-                {
-                    ErrCallingFunction = "Ticket Status Service: Update Ticket Status",
-                    ErrErrorMessage = ex.Message.ToString(),
-                    ErrStacktrace = ex.StackTrace.ToString(),
-                };
-                await _globalService.LogError(Err);
-            }
-            return Result;
-
-
-        }
+        //}
 
 
 
