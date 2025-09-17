@@ -17,7 +17,7 @@ namespace SLAwareApi.Models.SLAware.Ticket
 
             public string Description { get; set; } = null!;
 
-            public long TicketStatusId { get; set; }
+            public string TicketStatus { get; set; }
 
             public long TicketSeverityLevelId { get; set; }
 

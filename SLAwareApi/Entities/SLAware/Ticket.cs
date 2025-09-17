@@ -25,6 +25,8 @@ public partial class Ticket
 
     public DateTime CreatedAt { get; set; }
 
+    public bool? IsActive { get; set; }
+
     public virtual ICollection<TicketActivityLog> TicketActivityLogs { get; set; } = new List<TicketActivityLog>();
 
     public virtual ICollection<TicketMessage> TicketMessages { get; set; } = new List<TicketMessage>();

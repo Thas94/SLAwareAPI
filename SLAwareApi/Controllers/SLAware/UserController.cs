@@ -15,7 +15,7 @@ namespace SLAwareApi.Controllers.SLAware
             _userService = userService;
         }
 
-        [HttpGet]
-        public async Task<UserModel> Login(string firstname) => await _userService.Login(firstname);
+        //[HttpGet]
+        //public async Task<UserModel> Login(string firstname) => await _userService.Login(firstname);
     }
 }

@@ -31,7 +31,5 @@ public partial class TicketSlaTracking
 
     public DateTime CreatedAt { get; set; }
 
-    public virtual SlaSeverityLevel SlaSeverityLevel { get; set; } = null!;
-
     public virtual Ticket Ticket { get; set; } = null!;
 }

@@ -5,7 +5,7 @@ using static SLAwareApi.Models.TFTApp.GlobalsModels;
 
 namespace SLAwareApi.Controllers.SLAware
 {
-    [Route("[controller]/[Action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class TicketController : ControllerBase
     {
@@ -17,6 +17,19 @@ namespace SLAwareApi.Controllers.SLAware
 
         [HttpPost]
         public async Task<ReturnModel> CreateTicket(CreatetTicketModel createtTicket) => await _ticketService.CreateTicket(createtTicket);
+
+        [HttpGet("{id}")]
+        public async Task<ReturnModel> GetTicket(long id, long userId) => await _ticketService.GetTicket(id, userId);
+
+
+        [HttpDelete("{id}")]
+        public async Task<ReturnModel> DeleteTicket(long id, long userId) => await _ticketService.GetTicket(id, userId);
+       
+        [HttpGet("allTickets")]
+        public async Task<ReturnModel> GetAllTicket(long id, long userId) => await _ticketService.GetTicket(id, userId);
+        
+        [HttpGet("assignedTickets{id}")]
+        public async Task<ReturnModel> GetAssignedTickets( long userId) => await _ticketService.GetAssignedTickets( userId);
         //[HttpPost]
         //public async Task<bool> CreateTicket(CreatetTicketModel createtTicket) => await _ticketService.CreateTicket(createtTicket);
     }
