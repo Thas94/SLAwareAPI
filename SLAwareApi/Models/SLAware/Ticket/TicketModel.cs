@@ -5,19 +5,17 @@ namespace SLAwareApi.Models.SLAware.Ticket
     public class TicketModel
     {
 
-
-
         public class TicketReturnModel
         {
             public long Id { get; set; }
 
-            public long TicketNumber { get; set; }
+            public string TicketNumber { get; set; }
 
             public string Subject { get; set; } = null!;
 
             public string Description { get; set; } = null!;
 
-            public string TicketStatus { get; set; }
+            public long TicketStatusId { get; set; }
 
             public long SeverityLevelId { get; set; }
 
@@ -26,6 +24,7 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public long? AssignedToId { get; set; }
 
             public long SubCategoryId { get; set; }
+            public long? CategoryId { get; set; }
 
             public DateTime CreatedAt { get; set; }
             public bool? IsActive { get; set; }
@@ -35,23 +34,47 @@ namespace SLAwareApi.Models.SLAware.Ticket
         }
         public class UpdateTicketRequestModel
         {
-            public long Id { get; set; }
+            //public long Id { get; set; }
 
-            public long TicketNumber { get; set; }
+            public string TicketNumber { get; set; } = null!;
 
             public string Subject { get; set; } = null!;
 
             public string Description { get; set; } = null!;
 
-            public string TicketStatus { get; set; }
+            public string TicketStatus { get; set; } = null!;
 
             public long TicketSeverityLevelId { get; set; }
             public long loggedInUserId { get; set; }
 
-
-
-
         }
+
+        public class CreateTicketModel
+        {
+
+            //public string TicketNumber { get; set; } 
+
+            public string Subject { get; set; } = null!;
+
+            public string Description { get; set; } = null!;
+
+            public long TicketStatusId { get; set; }
+
+            public long? CategoryId { get; set; }
+
+            public long SubCategoryId { get; set; }
+
+            public long CreatedById { get; set; }
+
+            public bool? IsActive { get; set; }
+
+            //public long SeverityLevelId { get; set; }
+            //public long Id { get; set; }
+
+            //public DateTime CreatedAt { get; set; }
+            //public long? AssignedToId { get; set; }
+        }
+
 
     }
 }

@@ -15,7 +15,8 @@ namespace SLAwareApi.Services.SLAware
 
     public class TicketStatusService : ClinicalServiceBase, ITicketStatusService
     {
-        private readonly ISlaSeverityService _slaSeverityService;        private readonly IGlobalService _globalService;
+        private readonly ISlaSeverityService _slaSeverityService;       
+        private readonly IGlobalService _globalService;
 
         private readonly EntityHelper _entityHelper;
 

@@ -286,6 +286,7 @@ public partial class slaware_dataContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AssignedToId).HasColumnName("assigned_to_id");
+            entity.Property(e => e.CategoryId).HasColumnName("category_id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
@@ -297,8 +298,14 @@ public partial class slaware_dataContext : DbContext
             entity.Property(e => e.Subject)
                 .HasMaxLength(50)
                 .HasColumnName("subject");
-            entity.Property(e => e.TicketNumber).HasColumnName("ticket_number");
+            entity.Property(e => e.TicketNumber)
+                .HasMaxLength(50)
+                .HasColumnName("ticket_number");
             entity.Property(e => e.TicketStatusId).HasColumnName("ticket_status_id");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Tickets)
+                .HasForeignKey(d => d.CategoryId)
+                .HasConstraintName("FK_ticket_category");
 
             entity.HasOne(d => d.SeverityLevel).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.SeverityLevelId)
