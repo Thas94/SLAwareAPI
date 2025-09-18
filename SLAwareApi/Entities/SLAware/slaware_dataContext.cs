@@ -482,12 +482,18 @@ public partial class slaware_dataContext : DbContext
             entity.Property(e => e.ResolutionDueDtm)
                 .HasColumnType("datetime")
                 .HasColumnName("resolution_due_dtm");
+            entity.Property(e => e.ResolutionSlaBreachDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("resolution_sla_breach_dtm");
             entity.Property(e => e.ResolvedDtm)
                 .HasColumnType("datetime")
                 .HasColumnName("resolved_dtm");
             entity.Property(e => e.ResponseDueDtm)
                 .HasColumnType("datetime")
                 .HasColumnName("response_due_dtm");
+            entity.Property(e => e.ResponseSlaBreachDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("response_sla_breach_dtm");
             entity.Property(e => e.SlaSeverityLevelId).HasColumnName("sla_severity_level_Id");
             entity.Property(e => e.TicketId).HasColumnName("ticket_Id");
 

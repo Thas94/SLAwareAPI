@@ -31,5 +31,9 @@ public partial class TicketSlaTracking
 
     public DateTime CreatedAt { get; set; }
 
+    public DateTime? ResponseSlaBreachDtm { get; set; }
+
+    public DateTime? ResolutionSlaBreachDtm { get; set; }
+
     public virtual Ticket Ticket { get; set; } = null!;
 }

@@ -11,8 +11,6 @@ namespace SLAwareApi.Services.SLAware
 {
     public class SlaSeverityService : ClinicalServiceBase, ISlaSeverityService
     {
-        public static readonly TimeSpan WorkStart = new TimeSpan(8, 30, 0);
-        public static readonly TimeSpan WorkEnd = new TimeSpan(17, 0, 0);
         //public SlaSeverityService(slaware_dataContext slaware_DataContext) : base(slaware_DataContext)
         //{ }
 
