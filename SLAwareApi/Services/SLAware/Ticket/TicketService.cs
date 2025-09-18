@@ -41,7 +41,7 @@ namespace SLAwareApi.Services.SLAware
                 ticketModel.Subject = createtTicket.Subject;
                 ticketModel.Description = createtTicket.Description;
                 ticketModel.TicketStatusId = createtTicket.TicketStatusId;
-                ticketModel.TicketSeverityLevelId = createtTicket.TicketSeverityLevelId;
+                ticketModel.SeverityLevelId = createtTicket.SeverityLevelId;
                 ticketModel.CreatedById = createtTicket.CreateById;
                 ticketModel.CreatedAt = DateTime.Now;
                 ticketModel.SubCategoryId = createtTicket.SubCategorylId;
@@ -108,18 +108,18 @@ namespace SLAwareApi.Services.SLAware
             {
                 TicketReturn = _slawareContext.Tickets.Where(x => x.CreatedById == userId && x.Id == id)
                     .Select(x => new TicketReturnModel()
-                {
-                    Id = x.Id,
-                    TicketNumber = x.TicketNumber,
-                    Description = x.Description,
-                    Subject = x.Subject,
-                    TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(tn => tn.Name).FirstOrDefault(),
-                    TicketSeverityLevelId = x.TicketSeverityLevelId,
-                    CreatedById = x.CreatedById,   
-                    AssignedToId = x.AssignedToId,
-                    SubCategoryId = x.SubCategoryId,
-                    CreatedAt = x.CreatedAt
-                }).FirstOrDefault();
+                    {
+                        Id = x.Id,
+                        TicketNumber = x.TicketNumber,
+                        Description = x.Description,
+                        Subject = x.Subject,
+                        TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(tn => tn.Name).FirstOrDefault(),
+                        SeverityLevelId = x.SeverityLevelId,
+                        CreatedById = x.CreatedById,
+                        AssignedToId = x.AssignedToId,
+                        SubCategoryId = x.SubCategoryId,
+                        CreatedAt = x.CreatedAt
+                    }).FirstOrDefault();
 
                 if (TicketReturn != null)
                 {
@@ -164,9 +164,12 @@ namespace SLAwareApi.Services.SLAware
                     TicketNumber = x.TicketNumber,
                     Description = x.Description,
                     Subject = x.Subject,
-                    //TicketStatus = _slawareContext.TicketStatuses.Where(x.)
-
-
+                    TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(tn => tn.Name).FirstOrDefault(),
+                    SeverityLevelId = x.SeverityLevelId,
+                    CreatedById = x.CreatedById,
+                    AssignedToId = x.AssignedToId,
+                    SubCategoryId = x.SubCategoryId,
+                    CreatedAt = x.CreatedAt
                 }).ToList();
 
                 if (TicketReturn.Count > 0)
@@ -199,6 +202,59 @@ namespace SLAwareApi.Services.SLAware
 
         }
 
+        public async Task<ReturnModel> GetClientTickets(long userId)
+        {
+            ReturnModel Result = new ReturnModel();
+            List<TicketReturnModel> TicketReturn = new List<TicketReturnModel>();
+            
+            try
+            {
+                TicketReturn = _slawareContext.Tickets.Where(t => t.CreatedById == userId)
+                    .Select(x => new TicketReturnModel()
+                    {
+                        Id = x.Id,
+                        TicketNumber = x.TicketNumber,
+                        Subject = x.Subject,
+                        Description = x.Description,
+                        //TicketStatus = x.TicketStatusId,
+                        SeverityLevelId = x.SeverityLevelId,
+                        CreatedById = x.CreatedById,
+                        AssignedToId = x.AssignedToId,
+                        SubCategoryId = x.SubCategoryId,
+                        CreatedAt = x.CreatedAt,
+                        
+                    }).ToList();
+
+                if (TicketReturn.Count > 0)
+                {
+                    Result.Status = true;
+                    Result.Result = TicketReturn;
+                    Result.error = null;
+                }
+                else
+                {
+                    Result.Status = false;
+                    Result.Result = TicketReturn;
+                    Result.error = "No Tickets found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //Gathering All the Error Details to be saved
+                var Err = new ErrorTemplate
+                {
+                    ErrCallingFunction = "Ticket Service : Get Client Tickets",
+                    ErrErrorMessage = ex.Message.ToString(),
+                    ErrStacktrace = ex.StackTrace.ToString(),
+                };
+                //await _globalService.LogError(Err);
+            }
+            return Result;
+
+
+        }
+
         public async Task<ReturnModel> GetAssignedTickets(long userId)
         {
             ReturnModel Result = new ReturnModel();
@@ -208,20 +264,20 @@ namespace SLAwareApi.Services.SLAware
             {
                 TicketReturn = _slawareContext.Tickets.Where(t => t.AssignedToId == userId)
                     .Select(x => new TicketReturnModel()
-                {
-                    Id = x.Id,
-                    TicketNumber = x.TicketNumber,
-                    Description = x.Description,
-                    Subject = x.Subject,
-                    //TicketStatus = x.TicketStatusId,
-                    TicketSeverityLevelId = x.TicketSeverityLevelId,    
-                    CreatedById = x.CreatedById,
-                    AssignedToId = x.AssignedToId,
-                    SubCategoryId = x.SubCategoryId,
-                    CreatedAt = x.CreatedAt,
+                    {
+                        Id = x.Id,
+                        TicketNumber = x.TicketNumber,
+                        Description = x.Description,
+                        Subject = x.Subject,
+                        //TicketStatus = x.TicketStatusId,
+                        SeverityLevelId = x.SeverityLevelId,
+                        CreatedById = x.CreatedById,
+                        AssignedToId = x.AssignedToId,
+                        SubCategoryId = x.SubCategoryId,
+                        CreatedAt = x.CreatedAt,
 
 
-                }).ToList();
+                    }).ToList();
 
                 if (TicketReturn.Count > 0)
                 {
@@ -304,7 +360,7 @@ namespace SLAwareApi.Services.SLAware
         }
 
 
-      
+
         //public async Task<ReturnModel> UpdateTicket(long id, UpdateTicketRequestModel RequestModel)
         //{
 

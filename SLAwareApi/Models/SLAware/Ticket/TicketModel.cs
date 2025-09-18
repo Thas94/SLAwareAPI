@@ -7,7 +7,7 @@ namespace SLAwareApi.Models.SLAware.Ticket
 
 
 
-        public  class TicketReturnModel
+        public class TicketReturnModel
         {
             public long Id { get; set; }
 
@@ -19,7 +19,7 @@ namespace SLAwareApi.Models.SLAware.Ticket
 
             public string TicketStatus { get; set; }
 
-            public long TicketSeverityLevelId { get; set; }
+            public long SeverityLevelId { get; set; }
 
             public long CreatedById { get; set; }
 
@@ -28,10 +28,12 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public long SubCategoryId { get; set; }
 
             public DateTime CreatedAt { get; set; }
+            public bool? IsActive { get; set; }
 
-          
+
+
         }
-        public  class UpdateTicketRequestModel
+        public class UpdateTicketRequestModel
         {
             public long Id { get; set; }
 
@@ -46,9 +48,9 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public long TicketSeverityLevelId { get; set; }
             public long loggedInUserId { get; set; }
 
-          
 
-          
+
+
         }
 
     }

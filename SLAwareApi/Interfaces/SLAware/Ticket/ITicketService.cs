@@ -8,7 +8,9 @@ namespace SLAwareApi.Interfaces.SLAware
         Task<ReturnModel> CreateTicket(CreatetTicketModel createtTicket);
         Task<ReturnModel> GetTicket(long id, long userId);
         Task<ReturnModel> GetAssignedTickets( long userId);
+        Task<ReturnModel> GetClientTickets( long userId);
         Task<ReturnModel> DeleteTicket(long id);
+        Task<ReturnModel> GetAllTickets();
 
         //Task<bool> CreateTicket(CreatetTicketModel createtTicket);
     }

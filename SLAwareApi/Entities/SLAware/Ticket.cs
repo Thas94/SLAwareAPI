@@ -15,7 +15,7 @@ public partial class Ticket
 
     public long TicketStatusId { get; set; }
 
-    public long TicketSeverityLevelId { get; set; }
+    public long SeverityLevelId { get; set; }
 
     public long CreatedById { get; set; }
 
@@ -27,13 +27,13 @@ public partial class Ticket
 
     public bool? IsActive { get; set; }
 
+    public virtual SlaSeverityLevel SeverityLevel { get; set; } = null!;
+
     public virtual ICollection<TicketActivityLog> TicketActivityLogs { get; set; } = new List<TicketActivityLog>();
 
     public virtual ICollection<TicketMessage> TicketMessages { get; set; } = new List<TicketMessage>();
 
     public virtual ICollection<TicketNotification> TicketNotifications { get; set; } = new List<TicketNotification>();
-
-    public virtual TicketSeverityLevel TicketSeverityLevel { get; set; } = null!;
 
     public virtual ICollection<TicketSlaTracking> TicketSlaTrackings { get; set; } = new List<TicketSlaTracking>();
 }

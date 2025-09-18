@@ -17,8 +17,8 @@ namespace SLAwareApi.Controllers.SLAware
 
         [HttpPost]
         public async Task<ReturnModel> CreateTicket(CreatetTicketModel createtTicket) => await _ticketService.CreateTicket(createtTicket);
-        [HttpPost]
-        public async Task<ReturnModel> UpdateTicket(CreatetTicketModel RequestModel) => await _ticketService.UpdateTicket(RequestModel);
+       
+        //public async Task<ReturnModel> UpdateTicket(CreatetTicketModel RequestModel) => await _ticketService.UpdateTicket(RequestModel);
 
         [HttpGet("{id}")]
         public async Task<ReturnModel> GetTicket(long id, long userId) => await _ticketService.GetTicket(id, userId);
@@ -27,10 +27,13 @@ namespace SLAwareApi.Controllers.SLAware
         public async Task<ReturnModel> DeleteTicket(long id, long userId) => await _ticketService.DeleteTicket(id);
        
         [HttpGet("allTickets")]
-        public async Task<ReturnModel> GetAllTicket(long id, long userId) => await _ticketService.GetTicket(id, userId);
+        public async Task<ReturnModel> GetAllTicket() => await _ticketService.GetAllTickets();
         
-        [HttpGet("assignedTickets{id}")]
-        public async Task<ReturnModel> GetAssignedTickets( long userId) => await _ticketService.GetAssignedTickets( userId);
+        [HttpGet("assignedTickets/{id}")]
+        public async Task<ReturnModel> GetAssignedTickets( long id) => await _ticketService.GetAssignedTickets(id);
+        
+        [HttpGet("clientTickets/{id}")]
+        public async Task<ReturnModel> GetClientTickets( long id) => await _ticketService.GetClientTickets(id);
         //[HttpPost]
         //public async Task<bool> CreateTicket(CreatetTicketModel createtTicket) => await _ticketService.CreateTicket(createtTicket);
     }

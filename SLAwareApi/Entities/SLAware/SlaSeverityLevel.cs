@@ -24,4 +24,6 @@ public partial class SlaSeverityLevel
     public virtual ICollection<SlaSeverityLevelRule> SlaSeverityLevelRules { get; set; } = new List<SlaSeverityLevelRule>();
 
     public virtual ICollection<SubCategorySeverityLevel> SubCategorySeverityLevels { get; set; } = new List<SubCategorySeverityLevel>();
+
+    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 }

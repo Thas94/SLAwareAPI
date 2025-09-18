@@ -152,18 +152,40 @@
         "tags": [
           "Ticket"
         ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Ticket/assignedTickets/{id}": {
+      "get": {
+        "tags": [
+          "Ticket"
+        ],
         "parameters": [
           {
             "name": "id",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int64"
@@ -194,26 +216,19 @@
         }
       }
     },
-    "/api/Ticket/assignedTickets{id}": {
+    "/api/Ticket/clientTickets/{id}": {
       "get": {
         "tags": [
           "Ticket"
         ],
         "parameters": [
           {
-            "name": "userId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
@@ -472,7 +487,7 @@
             "type": "integer",
             "format": "int64"
           },
-          "ticketSeverityLevelId": {
+          "severityLevelId": {
             "type": "integer",
             "format": "int64"
           },
