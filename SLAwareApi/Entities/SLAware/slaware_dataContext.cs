@@ -6,8 +6,8 @@ namespace SLAwareApi.Entities.SLAware;
 
 public partial class slaware_dataContext : DbContext
 {
-
-
+    
+    
     public slaware_dataContext()
     {
     }

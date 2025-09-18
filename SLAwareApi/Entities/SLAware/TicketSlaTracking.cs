@@ -25,9 +25,9 @@ public partial class TicketSlaTracking
 
     public DateTime? ResolvedDtm { get; set; }
 
-    public bool? IsResponseSlaBreach { get; set; }
+    public bool IsResponseSlaBreach { get; set; }
 
-    public bool? IsResolutionSlaBreach { get; set; }
+    public bool IsResolutionSlaBreach { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

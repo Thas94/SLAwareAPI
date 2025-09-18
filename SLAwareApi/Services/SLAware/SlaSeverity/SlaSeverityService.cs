@@ -11,11 +11,6 @@ namespace SLAwareApi.Services.SLAware
 {
     public class SlaSeverityService : ClinicalServiceBase, ISlaSeverityService
     {
-        public static readonly TimeSpan WorkStart = new TimeSpan(8, 30, 0);
-        public static readonly TimeSpan WorkEnd = new TimeSpan(17, 0, 0);
-        //public SlaSeverityService(slaware_dataContext slaware_DataContext) : base(slaware_DataContext)
-        //{ }
-
         private readonly EntityHelper _entityHelper;
 
         public SlaSeverityService(EntityHelper entityHelper, TftAppContext context, slaware_dataContext slawareContext, IMapper mapper) : base(context, slawareContext, mapper)
@@ -31,12 +26,6 @@ namespace SLAwareApi.Services.SLAware
 
             try
             {
-                //check if current is outside working hours
-                //if (current.TimeOfDay < WorkStart)
-                //    current = current.Date.Add(WorkStart);
-                //else if (current.TimeOfDay >= WorkEnd)
-                //    current = current.Date.AddDays(1).Add(WorkEnd);
-
                 while (remaining > TimeSpan.Zero)
                 {
                     //check and skip if current is weekends
@@ -66,6 +55,46 @@ namespace SLAwareApi.Services.SLAware
             }
             return current;
         }
+        //public (DateTime, TimeSpan?) CalculateSlaDue(DateTime start, TimeSpan slaDuration)
+        //{
+        //    var current = start;
+        //    var remaining = slaDuration;
+
+        //    try
+        //    {
+        //        while (remaining > TimeSpan.Zero)
+        //        {
+        //            //check and skip if current is weekends
+        //            if (!IsWorkingDay(current.Date))
+        //            {
+        //                current = current.Date.AddDays(1).Add(WorkStart);
+        //                continue;
+        //            }
+
+        //            var workStartToday = current.Date.Add(WorkStart);
+        //            var workEndToday = current.Date.Add(WorkEnd);
+
+        //            var availableToday = workEndToday - current;
+        //            var timeToAdd = remaining < availableToday ? remaining : availableToday;
+
+        //            current = current.Add(timeToAdd);
+        //            remaining -= timeToAdd;
+
+        //            //check if there's hours remaining, move to the next day
+        //            //if (remaining > TimeSpan.Zero)
+        //            //    current = current.Date.AddMinutes(1).Add(WorkStart);
+        //            if (remaining > TimeSpan.Zero)
+        //            {
+        //                return (current, timeToAdd);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //    return (current, null);
+        //}
 
     }
 }
