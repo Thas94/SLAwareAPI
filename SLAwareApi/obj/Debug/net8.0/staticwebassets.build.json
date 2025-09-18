@@ -1,1 +1,12 @@
-{"Version":1,"Hash":"rZWtx/2m/2wWksQJd3iI3KkxQIOd8vJ1iyKrTddPxUo=","Source":"SLAwareApi","BasePath":"_content/SLAwareApi","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
+{
+  "Version": 1,
+  "Hash": "rZWtx/2m/2wWksQJd3iI3KkxQIOd8vJ1iyKrTddPxUo=",
+  "Source": "SLAwareApi",
+  "BasePath": "_content/SLAwareApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

@@ -7,7 +7,6 @@ using SLAwareApi.Interfaces.SLAware.TicketCategory;
 using SLAwareApi.Interfaces.SLAware.TicketStatus;
 using SLAwareApi.Interfaces.SLAware.TicketSubCategory;
 using SLAwareApi.Services.SLAware;
-using SLAwareApi.Services.SLAware;
 using SLAwareApi.Services.SLAware.TicketCategory;
 using SLAwareApi.Services.SLAware.TicketSubCategory;
 using TFTShuttiAPI.TFTEntities.Helpers;

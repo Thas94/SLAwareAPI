@@ -14,28 +14,28 @@ namespace TFTShuttiAPI.TFTEntities.Helpers
 
         }
 
-        public async Task<List<T>> ExecuteCommandDataTable<T>(string SQL) where T : class
-        {
-            try
-            {
-                return await _clinicalEntityHelper.ExecuteCommandDataTableAsync<T>(SQL);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
+        //public async Task<List<T>> ExecuteCommandDataTable<T>(string SQL) where T : class
+        //{
+        //    try
+        //    {
+        //        return await _clinicalEntityHelper.ExecuteCommandDataTableAsync<T>(SQL);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
 
-        public int ExecuteCommandScalar(string SQL)
-        {
-            try
-            {
-                return _clinicalEntityHelper.ExecuteCommandScalar(SQL);
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
-        }
+        //public int ExecuteCommandScalar(string SQL)
+        //{
+        //    try
+        //    {
+        //        return _clinicalEntityHelper.ExecuteCommandScalar(SQL);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return 0;
+        //    }
+        //}
     }
 }

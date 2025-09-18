@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SLAwareApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d3e30a5c1d4272b18937592cc630486bb46387bf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee1f204ca0d9ff19c364e49527dce28f366c374b")]
 [assembly: System.Reflection.AssemblyProductAttribute("SLAwareApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SLAwareApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
