@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/Ticket/CreateTicket": {
+    "/api/Ticket": {
       "post": {
         "tags": [
           "Ticket"
@@ -14,17 +14,73 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreatetTicketModel"
+                "$ref": "#/components/schemas/CreateTicketModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreatetTicketModel"
+                "$ref": "#/components/schemas/CreateTicketModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreatetTicketModel"
+                "$ref": "#/components/schemas/CreateTicketModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Ticket"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTicketRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTicketRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTicketRequestModel"
               }
             }
           }
@@ -53,17 +109,26 @@
         }
       }
     },
-    "/User/Login": {
-      "get": {
+    "/api/Ticket/assignTicket": {
+      "put": {
         "tags": [
-          "User"
+          "Ticket"
         ],
         "parameters": [
           {
-            "name": "firstname",
+            "name": "ticketId",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
@@ -73,17 +138,655 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserModel"
+                  "$ref": "#/components/schemas/ReturnModel"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserModel"
+                  "$ref": "#/components/schemas/ReturnModel"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserModel"
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Ticket/{id}": {
+      "get": {
+        "tags": [
+          "Ticket"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Ticket"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Ticket/allTickets": {
+      "get": {
+        "tags": [
+          "Ticket"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Ticket/assignedTickets/{id}": {
+      "get": {
+        "tags": [
+          "Ticket"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Ticket/clientTickets/{id}": {
+      "get": {
+        "tags": [
+          "Ticket"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TicketCategory/allCategories": {
+      "get": {
+        "tags": [
+          "TicketCategory"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TicketCategory": {
+      "get": {
+        "tags": [
+          "TicketCategory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TicketCategory/{id}": {
+      "delete": {
+        "tags": [
+          "TicketCategory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TicketStatus": {
+      "get": {
+        "tags": [
+          "TicketStatus"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TicketStatus"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTicketStatusRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTicketStatusRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTicketStatusRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TicketStatus"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTicketStatusRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTicketStatusRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTicketStatusRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TicketStatus/{id}": {
+      "delete": {
+        "tags": [
+          "TicketStatus"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TicketSubCategory/allSubCategories": {
+      "get": {
+        "tags": [
+          "TicketSubCategory"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TicketSubCategory": {
+      "get": {
+        "tags": [
+          "TicketSubCategory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TicketSubCategory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTicketSubCategoryReturnModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTicketSubCategoryReturnModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTicketSubCategoryReturnModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TicketSubCategory/{id}": {
+      "delete": {
+        "tags": [
+          "TicketSubCategory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
                 }
               }
             }
@@ -94,86 +797,77 @@
   },
   "components": {
     "schemas": {
-      "AgentModel": {
+      "CreateTicketModel": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ClientModel": {
-        "type": "object",
-        "properties": {
-          "tierId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "tier": {
-            "type": "string",
-            "nullable": true
-          },
-          "communicationTypes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CommunicationTypeModel"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CommunicationTypeModel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "type": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreatetTicketModel": {
-        "type": "object",
-        "properties": {
-          "createById": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "assignedToId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "ticketStatusId": {
-            "$ref": "#/components/schemas/TicketStatus"
-          },
-          "categoryId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "applicationId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "subCategorylId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "tagId": {
-            "type": "integer",
-            "format": "int64"
-          },
           "subject": {
             "type": "string",
             "nullable": true
           },
           "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "ticketStatusId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "subCategoryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdById": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "isActive": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateTicketStatusRequestModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "loggedInUser": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
             "type": "string",
             "nullable": true
           }
@@ -196,46 +890,96 @@
         },
         "additionalProperties": false
       },
-      "TicketStatus": {
-        "enum": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
-      "UserModel": {
+      "UpdateTicketRequestModel": {
         "type": "object",
         "properties": {
-          "userId": {
+          "ticketNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "subject": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "ticketStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "ticketSeverityLevelId": {
             "type": "integer",
             "format": "int64"
           },
-          "firstName": {
+          "loggedInUserId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateTicketStatusRequestModel": {
+        "type": "object",
+        "properties": {
+          "name": {
             "type": "string",
             "nullable": true
           },
-          "lastName": {
+          "description": {
             "type": "string",
             "nullable": true
           },
-          "roleName": {
-            "type": "string",
+          "active": {
+            "type": "boolean",
             "nullable": true
           },
-          "roleId": {
+          "loggedInUser": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateTicketSubCategoryReturnModel": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "integer",
             "format": "int64"
           },
-          "client": {
-            "$ref": "#/components/schemas/ClientModel"
+          "ticketCategoryId": {
+            "type": "integer",
+            "format": "int64"
           },
-          "agent": {
-            "$ref": "#/components/schemas/AgentModel"
+          "tagId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false

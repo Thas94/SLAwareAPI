@@ -3,7 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using SLAwareApi.Entities.SLAware;
 using SLAwareApi.Entities.TFTAPPEntities;
 using SLAwareApi.Interfaces.SLAware;
+using SLAwareApi.Interfaces.SLAware.TicketCategory;
+using SLAwareApi.Interfaces.SLAware.TicketStatus;
+using SLAwareApi.Interfaces.SLAware.TicketSubCategory;
 using SLAwareApi.Services.SLAware;
+using SLAwareApi.Services.SLAware;
+using SLAwareApi.Services.SLAware.TicketCategory;
+using SLAwareApi.Services.SLAware.TicketSubCategory;
 using TFTShuttiAPI.TFTEntities.Helpers;
 
 
@@ -48,6 +54,12 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ISlaSeverityService, SlaSeverityService>();
 builder.Services.AddScoped<IGlobalService, GlobalService>();
+builder.Services.AddScoped<ITicketStatusService, TicketStatusService>();
+
+builder.Services.AddScoped<ITicketSubCategoryService, TicketSubCategoryService>();
+builder.Services.AddScoped<ITicketCategoryService, TicketCategoryService>();
+
+
 builder.Services.AddScoped<slaware_dataContext>();
 
 builder.Services.AddSingleton<ClinicalEntityHelper>();

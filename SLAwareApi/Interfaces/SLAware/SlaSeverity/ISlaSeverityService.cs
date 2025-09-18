@@ -1,4 +1,6 @@
-﻿namespace SLAwareApi.Interfaces.SLAware
+﻿using static SLAwareApi.Models.TFTApp.GlobalsModels;
+
+namespace SLAwareApi.Interfaces.SLAware
 {
     public interface ISlaSeverityService
     {

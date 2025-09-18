@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SLAwareApi.Interfaces.SLAware;
 using SLAwareApi.Models.SLAware;
+using static SLAwareApi.Models.SLAware.Ticket.TicketModel;
 using static SLAwareApi.Models.TFTApp.GlobalsModels;
 
 namespace SLAwareApi.Controllers.SLAware
 {
-    [Route("[controller]/[Action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class TicketController : ControllerBase
     {
@@ -16,7 +17,28 @@ namespace SLAwareApi.Controllers.SLAware
         }
 
         [HttpPost]
-        public async Task<ReturnModel> CreateTicket(CreatetTicketModel createtTicket) => await _ticketService.CreateTicket(createtTicket);
+        public async Task<ReturnModel> CreateTicket(CreateTicketModel createtTicket) => await _ticketService.CreateTicket(createtTicket);
+        
+        [HttpPut("assignTicket")]
+        public async Task<ReturnModel> AssignTicketToAgent(long ticketId, long userId) => await _ticketService.AssignTicketToAgent(ticketId, userId);
+
+        [HttpPut]
+        public async Task<ReturnModel> UpdateTicket(long id, UpdateTicketRequestModel RequestModel) => await _ticketService.UpdateTicket(id, RequestModel);
+       
+        [HttpGet("{id}")]
+        public async Task<ReturnModel> GetTicket(long id) => await _ticketService.GetTicket(id);
+
+        [HttpDelete("{id}")]
+        public async Task<ReturnModel> DeleteTicket(long id, long userId) => await _ticketService.DeleteTicket(id);
+
+        [HttpGet("allTickets")]
+        public async Task<ReturnModel> GetAllTicket() => await _ticketService.GetAllTickets();
+
+        [HttpGet("assignedTickets/{id}")]
+        public async Task<ReturnModel> GetAssignedTickets(long id) => await _ticketService.GetAssignedTickets(id);
+
+        [HttpGet("clientTickets/{id}")]
+        public async Task<ReturnModel> GetClientTickets(long id) => await _ticketService.GetClientTickets(id);
         //[HttpPost]
         //public async Task<bool> CreateTicket(CreatetTicketModel createtTicket) => await _ticketService.CreateTicket(createtTicket);
     }
