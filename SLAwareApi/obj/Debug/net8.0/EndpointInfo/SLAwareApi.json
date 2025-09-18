@@ -67,14 +67,6 @@
               "type": "integer",
               "format": "int64"
             }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
           }
         ],
         "responses": {

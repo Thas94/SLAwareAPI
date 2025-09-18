@@ -21,7 +21,7 @@ namespace SLAwareApi.Controllers.SLAware
         //public async Task<ReturnModel> UpdateTicket(CreatetTicketModel RequestModel) => await _ticketService.UpdateTicket(RequestModel);
 
         [HttpGet("{id}")]
-        public async Task<ReturnModel> GetTicket(long id, long userId) => await _ticketService.GetTicket(id, userId);
+        public async Task<ReturnModel> GetTicket(long id) => await _ticketService.GetTicket(id);
 
         [HttpDelete("{id}")]
         public async Task<ReturnModel> DeleteTicket(long id, long userId) => await _ticketService.DeleteTicket(id);

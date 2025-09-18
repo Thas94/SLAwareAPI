@@ -99,14 +99,14 @@ namespace SLAwareApi.Services.SLAware
         }
 
 
-        public async Task<ReturnModel> GetTicket(long id, long userId)
+        public async Task<ReturnModel> GetTicket(long id)
         {
             ReturnModel Result = new ReturnModel();
             TicketReturnModel TicketReturn = new TicketReturnModel();
 
             try
             {
-                TicketReturn = _slawareContext.Tickets.Where(x => x.CreatedById == userId && x.Id == id)
+                TicketReturn = _slawareContext.Tickets.Where(x => x.Id == id)
                     .Select(x => new TicketReturnModel()
                     {
                         Id = x.Id,
@@ -131,7 +131,7 @@ namespace SLAwareApi.Services.SLAware
                 {
                     Result.Status = false;
                     Result.Result = TicketReturn;
-                    Result.error = "Internal server error.";
+                    Result.error = $"Ticket details for id: {id} not found";
                 }
 
             }
