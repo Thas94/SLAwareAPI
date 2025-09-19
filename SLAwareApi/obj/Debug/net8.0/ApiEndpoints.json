@@ -244,6 +244,32 @@
   },
   {
     "ContainingType": "SLAwareApi.Controllers.SLAware.TicketCategoryController",
+    "Method": "CreateTicketCategory",
+    "RelativePath": "api/TicketCategory",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "RequestModel",
+        "Type": "SLAwareApi.Models.SLAware.TicketCategory.TicketCategoryModels\u002BCreateTicketCategoryRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SLAwareApi.Models.TFTApp.GlobalsModels\u002BReturnModel",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SLAwareApi.Controllers.SLAware.TicketCategoryController",
     "Method": "DeleteCategory",
     "RelativePath": "api/TicketCategory/{id}",
     "HttpMethod": "DELETE",

@@ -6,9 +6,10 @@ using SLAwareApi.Interfaces.SLAware;
 using SLAwareApi.Interfaces.SLAware.TicketCategory;
 using SLAwareApi.Interfaces.SLAware.TicketStatus;
 using SLAwareApi.Interfaces.SLAware.TicketSubCategory;
+using SLAwareApi.Middleware;
 using SLAwareApi.Services.SLAware;
 using SLAwareApi.Services.SLAware;
-using SLAwareApi.Services.SLAware.TicketCategory;
+using SLAwareApi.Services.SLAware;
 using SLAwareApi.Services.SLAware.TicketSubCategory;
 using TFTShuttiAPI.TFTEntities.Helpers;
 
@@ -91,6 +92,8 @@ app.UseCors("TFTCors");
 
 
 app.UseHttpsRedirection();
+app.UseResponseCapture(); //Traffic Capture Middleware
+
 
 app.UseAuthorization();
 

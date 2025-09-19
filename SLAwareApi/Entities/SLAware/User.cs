@@ -28,6 +28,4 @@ public partial class User
     public virtual ICollection<TicketNotification> TicketNotifications { get; set; } = new List<TicketNotification>();
 
     public virtual ICollection<UserCompany> UserCompanies { get; set; } = new List<UserCompany>();
-
-    public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
 }

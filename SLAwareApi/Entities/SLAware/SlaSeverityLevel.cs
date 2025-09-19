@@ -12,7 +12,7 @@ public partial class SlaSeverityLevel
     public string Name { get; set; } = null!;
 
     public string Description { get; set; } = null!;
-     
+
     public DateTime CreatedAt { get; set; }
 
     public string? CreatedBy { get; set; }

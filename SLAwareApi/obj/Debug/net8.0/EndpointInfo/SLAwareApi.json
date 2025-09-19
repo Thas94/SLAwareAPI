@@ -417,6 +417,52 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "TicketCategory"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTicketCategoryRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTicketCategoryRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTicketCategoryRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/TicketCategory/{id}": {
@@ -797,6 +843,24 @@
   },
   "components": {
     "schemas": {
+      "CreateTicketCategoryRequestModel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "loggedInUser": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateTicketModel": {
         "type": "object",
         "properties": {
@@ -835,10 +899,6 @@
       "CreateTicketStatusRequestModel": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
           "name": {
             "type": "string",
             "nullable": true
@@ -847,27 +907,11 @@
             "type": "string",
             "nullable": true
           },
-          "active": {
-            "type": "boolean"
-          },
           "loggedInUser": {
             "type": "integer",
             "format": "int64"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
           "createdBy": {
-            "type": "string",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedBy": {
             "type": "string",
             "nullable": true
           }

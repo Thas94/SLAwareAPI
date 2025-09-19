@@ -199,7 +199,7 @@ namespace SLAwareApi.Services.SLAware
 
                         Name = RequestModel.Name,
                         Description = RequestModel.Description,
-                        Active = RequestModel.Active,
+                        Active = true,
                         CreatedAt = DateTime.Now,
                         CreatedBy = _context.Users.Where(u => u.Id == RequestModel.loggedInUser).Select(u => u.FirstName).FirstOrDefault(),
                         UpdatedAt = DateTime.Now,
