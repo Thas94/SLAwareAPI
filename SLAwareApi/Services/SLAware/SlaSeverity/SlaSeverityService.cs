@@ -42,6 +42,9 @@ namespace SLAwareApi.Services.SLAware
 
                     if (current < workStartToday)
                         current = workStartToday;
+                    
+                    if (current > workEndToday)
+                        current = workStartToday;
 
                     var availableToday = workEndToday - current;
                     var timeToAdd = remaining < availableToday ? remaining : availableToday;
@@ -58,11 +61,6 @@ namespace SLAwareApi.Services.SLAware
 
             }
             return current;
-        }
-
-        private bool IsWorkingDay(DateTime date)
-        {
-            return date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday ? true : false;
         }
     }
 }

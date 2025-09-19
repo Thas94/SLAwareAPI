@@ -10,7 +10,7 @@ namespace SLAwareApi.Services.SLAware.Base
         public readonly TftAppContext _context;
         public readonly slaware_dataContext _slawareContext;
         public static readonly TimeSpan WorkStart = new TimeSpan(8, 30, 0);
-        public static readonly TimeSpan WorkEnd = new TimeSpan(22, 10, 0);
+        public static readonly TimeSpan WorkEnd = new TimeSpan(17, 0, 0);
         public ClinicalServiceBase(TftAppContext context, slaware_dataContext slawareContext, IMapper mapper) : base(mapper)
         {
             _context = context;

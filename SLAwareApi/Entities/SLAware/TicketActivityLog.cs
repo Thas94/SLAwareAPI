@@ -13,7 +13,7 @@ public partial class TicketActivityLog
 
     public string Description { get; set; } = null!;
 
-    public long OldTicketStatusId { get; set; }
+    public long? OldTicketStatusId { get; set; }
 
     public long? NewTicketStatusId { get; set; }
 
@@ -27,7 +27,7 @@ public partial class TicketActivityLog
 
     public virtual TicketStatus? NewTicketStatus { get; set; }
 
-    public virtual TicketStatus OldTicketStatus { get; set; } = null!;
+    public virtual TicketStatus? OldTicketStatus { get; set; }
 
     public virtual Ticket Ticket { get; set; } = null!;
 

@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\services\\slaware\\base\\clinicalservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|solutionrelative:slawareapi\\services\\slaware\\base\\clinicalservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\services\\slaware\\ticket\\ticketservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|solutionrelative:slawareapi\\services\\slaware\\ticket\\ticketservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,6 +13,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\entities\\slaware\\slaware_datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|solutionrelative:slawareapi\\entities\\slaware\\slaware_datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\services\\slaware\\base\\clinicalservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|solutionrelative:slawareapi\\services\\slaware\\base\\clinicalservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{199B1E6C-95A5-485A-B0E0-AE438592C120}|SLAwareApi\\SLAwareApi.csproj|c:\\websites\\myprojects\\nuxt3\\slaware\\slawareapi\\slawareapi\\controllers\\slaware\\ticketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -98,7 +98,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -107,10 +107,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
@@ -123,18 +119,17 @@
               "ViewState": "AgIAAC4AAAAAAAAAAAAgwCMAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-10T22:26:44.031Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "TicketService.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareAPI\\SLAwareApi\\Services\\SLAware\\Ticket\\TicketService.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Services\\SLAware\\Ticket\\TicketService.cs",
-              "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareAPI\\SLAwareApi\\Services\\SLAware\\Ticket\\TicketService.cs",
-              "RelativeToolTip": "SLAwareApi\\Services\\SLAware\\Ticket\\TicketService.cs",
-              "ViewState": "AgIAADABAAAAAAAAAAAmwEYBAAAuAAAAAAAAAA==",
+              "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareAPI\\SLAwareApi\\Services\\SLAware\\Ticket\\TicketService.cs*",
+              "RelativeToolTip": "SLAwareApi\\Services\\SLAware\\Ticket\\TicketService.cs*",
+              "ViewState": "AgIAACwBAAAAAAAAAAAcwEIBAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-13T11:08:30.269Z",
               "IsPinned": true,
@@ -142,27 +137,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "ClinicalServiceBase.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareAPI\\SLAwareApi\\Services\\SLAware\\Base\\ClinicalServiceBase.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Services\\SLAware\\Base\\ClinicalServiceBase.cs",
               "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareAPI\\SLAwareApi\\Services\\SLAware\\Base\\ClinicalServiceBase.cs",
               "RelativeToolTip": "SLAwareApi\\Services\\SLAware\\Base\\ClinicalServiceBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-16T17:19:06.079Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "SlaSeverityService.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareAPI\\SLAwareApi\\Services\\SLAware\\SlaSeverity\\SlaSeverityService.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Services\\SLAware\\SlaSeverity\\SlaSeverityService.cs",
               "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareAPI\\SLAwareApi\\Services\\SLAware\\SlaSeverity\\SlaSeverityService.cs",
               "RelativeToolTip": "SLAwareApi\\Services\\SLAware\\SlaSeverity\\SlaSeverityService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAACwAAAAAAAAAAAAmwD4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-13T13:00:41.102Z",
               "IsPinned": true,
@@ -178,8 +172,7 @@
               "RelativeToolTip": "SLAwareApi\\Models\\SLAware\\Ticket\\TicketModel.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAwwD4AAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T17:43:40.588Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-18T17:43:40.588Z"
             },
             {
               "$type": "Document",
@@ -191,8 +184,7 @@
               "RelativeToolTip": "SLAwareApi\\Entities\\Helpers\\EntityHelper.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAA1wB8AAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T17:23:55.786Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-18T17:23:55.786Z"
             },
             {
               "$type": "Document",
@@ -204,8 +196,7 @@
               "RelativeToolTip": "SLAwareApi\\Entities\\Helpers\\ClinicalEntityHelper.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAgwCcAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T17:20:52.403Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-18T17:20:52.403Z"
             },
             {
               "$type": "Document",
@@ -217,8 +208,7 @@
               "RelativeToolTip": "SLAwareApi\\Interfaces\\SLAware\\Ticket\\ITicketService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T11:09:42.507Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-13T11:09:42.507Z"
             },
             {
               "$type": "Document",
@@ -230,18 +220,17 @@
               "RelativeToolTip": "SLAwareApi\\Controllers\\SLAware\\TicketController.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAEwBIAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T12:42:36.358Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-13T12:42:36.358Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "slaware_dataContext.cs",
               "DocumentMoniker": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareAPI\\SLAwareApi\\Entities\\SLAware\\slaware_dataContext.cs",
               "RelativeDocumentMoniker": "SLAwareApi\\Entities\\SLAware\\slaware_dataContext.cs",
               "ToolTip": "C:\\Websites\\MyProjects\\Nuxt3\\SLAware\\SLAwareAPI\\SLAwareApi\\Entities\\SLAware\\slaware_dataContext.cs",
               "RelativeToolTip": "SLAwareApi\\Entities\\SLAware\\slaware_dataContext.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAA2wDwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACgAAAAAAAAAAAAUwDwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-18T17:03:26.745Z",
               "EditorCaption": ""
@@ -256,8 +245,7 @@
               "RelativeToolTip": "SLAwareApi\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAACAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-10T22:33:10.736Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-10T22:33:10.736Z"
             },
             {
               "$type": "Document",
@@ -269,8 +257,7 @@
               "RelativeToolTip": "SLAwareApi\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T22:32:44.823Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-10T22:32:44.823Z"
             },
             {
               "$type": "Document",
@@ -282,8 +269,7 @@
               "RelativeToolTip": "SLAwareApi\\Entities\\SLAware\\Ticket.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAUAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T12:01:18.385Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-13T12:01:18.385Z"
             },
             {
               "$type": "Document",
@@ -307,8 +293,7 @@
               "RelativeToolTip": "SLAwareApi\\Enums\\Enums.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T00:35:03.264Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-11T00:35:03.264Z"
             },
             {
               "$type": "Document",
@@ -320,8 +305,7 @@
               "RelativeToolTip": "SLAwareApi\\Interfaces\\SLAware\\SlaSeverity\\ISlaSeverityService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T13:00:58.315Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-13T13:00:58.315Z"
             },
             {
               "$type": "Document",

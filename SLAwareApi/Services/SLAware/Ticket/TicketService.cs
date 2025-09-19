@@ -303,7 +303,7 @@ namespace SLAwareApi.Services.SLAware
             try
             {
                 var priority = _slawareContext.SubCategorySeverityLevels.Where(sc => sc.SubCategoryId == RequestModel.SubCategoryId).Select(sc => sc.SlaSeverityLevelId).FirstOrDefault();
-                var sla_rules = _slawareContext.SlaSeverityLevelRules.FirstOrDefault(x => x.SlaSeverityLevelId == priority);
+                var sla_rule = _slawareContext.SlaSeverityLevelRules.FirstOrDefault(x => x.SlaSeverityLevelId == priority);
                 //Populating the Ticket model to be inserted
 
                 var random = new Random();
@@ -330,20 +330,9 @@ namespace SLAwareApi.Services.SLAware
                 var track = new TicketSlaTracking();
                 track.TicketId = NewTicket.Id;
                 track.SlaSeverityLevelId = priority;
-                track.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rules.InitialResponseHours, 0, 0));
-                track.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rules.TargetResolutionHours, 0, 0));
-                var remainingResp = new TimeSpan((int)sla_rules.InitialResponseHours, 0, 0) - (DateTime.Now.Date.Add(WorkEnd) - NewTicket.CreatedAt);
-                var remainingResol = new TimeSpan((int)sla_rules.TargetResolutionHours, 0, 0) - (DateTime.Now.Date.Add(WorkEnd) - NewTicket.CreatedAt);
-                
+                track.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.InitialResponseHours, 0, 0));
+                track.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.TargetResolutionHours, 0, 0));                
                 track.CreatedAt = DateTime.Now;
-                track.PausedDtm = !IsWorkingHours(NewTicket.CreatedAt) ? NewTicket.CreatedAt : null;
-
-                track.RemainingResponseDueTime = track.PausedDtm.HasValue ? TimeOnly.FromTimeSpan(new TimeSpan((int)sla_rules.InitialResponseHours, 0, 0)) :
-                    track.ResponseDueDtm.Day != DateTime.Now.Day ? TimeOnly.FromTimeSpan(remainingResp) : null;
-
-                track.RemainingResolutionDueTime = track.PausedDtm.HasValue ? TimeOnly.FromTimeSpan(new TimeSpan((int)sla_rules.TargetResolutionHours, 0, 0)) :
-                    track.ResolutionDueDtm.Day != DateTime.Now.Day ? TimeOnly.FromTimeSpan(remainingResol) : null;
-
                 track.IsResponseSlaBreach = false;
                 track.IsResolutionSlaBreach = false;
                 _slawareContext.TicketSlaTrackings.Add(track);
@@ -377,7 +366,7 @@ namespace SLAwareApi.Services.SLAware
                 Result.Result = NewTicket;
                 Result.error = null;
             }
-                catch (Exception ex)
+            catch (Exception ex)
             {
                 Result.Result = null;
                 Result.Status = false;
@@ -390,7 +379,7 @@ namespace SLAwareApi.Services.SLAware
                     ErrErrorMessage = ex.Message.ToString(),
                     ErrStacktrace = ex.StackTrace.ToString(),
                 };
-                await _globalService.LogError(Err);
+                //await _globalService.LogError(Err);
             }
             return Result;
 
