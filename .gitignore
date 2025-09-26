@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/ProjectEvaluation/slawareapi.metadata.v9.bin
+/.vs/SLAwareApi/v17/.futdcache.v2
+/.vs/SLAwareApi/v17/.suo
+/.vs/SLAwareApi/v17/DocumentLayout.backup.json
+/.vs/SLAwareApi/v17/DocumentLayout.json
+/.vs/SLAwareApi/v17/HierarchyCache.v1.txt
+/SLAwareApi/bin/Debug/net8.0/SLAwareApi.dll
+/SLAwareApi/bin/Debug/net8.0/SLAwareApi.exe
+/SLAwareApi/bin/Debug/net8.0/SLAwareApi.pdb
