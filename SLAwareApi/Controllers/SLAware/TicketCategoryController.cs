@@ -33,5 +33,11 @@ namespace SLAwareApi.Controllers.SLAware
         [HttpDelete("{id}")]
         public async Task<ReturnModel> DeleteCategory(long id ) => await _ticketCategory.DeleteTicketCategory(id);
 
+
+        [HttpGet("subCategory/{id}")]
+        public async Task<ReturnModel> GetSubCategoriesForCategory(long id) => await _ticketCategory.GetSubCategoriesForCategory(id);
+
+
+
     }
 }

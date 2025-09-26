@@ -115,12 +115,12 @@ namespace SLAwareApi.Services.SLAware
                         TicketNumber = x.TicketNumber,
                         Description = x.Description,
                         Subject = x.Subject,
-                        TicketStatusId = x.TicketStatusId,
+                        TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
                         SeverityLevelId = x.SeverityLevelId,
                         CreatedById = x.CreatedById,
                         AssignedToId = x.AssignedToId,
-                        SubCategoryId = x.SubCategoryId,
-                        CategoryId = x.CategoryId,
+                        Category = _slawareContext.TicketCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
+                        SubCategory = _slawareContext.TicketSubCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
                         CreatedAt = x.CreatedAt
                     }).FirstOrDefault();
 
@@ -166,13 +166,15 @@ namespace SLAwareApi.Services.SLAware
                     TicketNumber = x.TicketNumber,
                     Description = x.Description,
                     Subject = x.Subject,
-                    TicketStatusId = x.TicketStatusId,
                     //TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(tn => tn.Name).FirstOrDefault(),
                     SeverityLevelId = x.SeverityLevelId,
                     CreatedById = x.CreatedById,
                     AssignedToId = x.AssignedToId,
-                    SubCategoryId = x.SubCategoryId,
-                    CategoryId = x.CategoryId,
+                    TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
+
+                    Category = _slawareContext.TicketCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
+                    SubCategory = _slawareContext.TicketSubCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
+
                     CreatedAt = x.CreatedAt
                 }).ToList();
 
@@ -220,12 +222,13 @@ namespace SLAwareApi.Services.SLAware
                         TicketNumber = x.TicketNumber,
                         Subject = x.Subject,
                         Description = x.Description,
-                        TicketStatusId = x.TicketStatusId,
                         SeverityLevelId = x.SeverityLevelId,
                         CreatedById = x.CreatedById,
                         AssignedToId = x.AssignedToId,
-                        CategoryId = x.CategoryId,
-                        SubCategoryId = x.SubCategoryId,
+                        TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
+                        Category = _slawareContext.TicketCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
+                        SubCategory = _slawareContext.TicketSubCategories.Where(c => c.Id == x.SubCategoryId).Select(c => c.Name).FirstOrDefault(),
+
                         CreatedAt = x.CreatedAt,
 
                     }).ToList();
@@ -278,8 +281,11 @@ namespace SLAwareApi.Services.SLAware
                         SeverityLevelId = x.SeverityLevelId,
                         CreatedById = x.CreatedById,
                         AssignedToId = x.AssignedToId,
-                        SubCategoryId = x.SubCategoryId,
-                        CategoryId = x.CategoryId,
+                        TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
+
+                        Category = _slawareContext.TicketCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
+                        SubCategory = _slawareContext.TicketSubCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
+
                         CreatedAt = x.CreatedAt,
 
 
@@ -385,7 +391,7 @@ namespace SLAwareApi.Services.SLAware
                     TicketNumber = ticketNumber,
                     Subject = RequestModel.Subject,
                     Description = RequestModel.Description,
-                    TicketStatusId = RequestModel.TicketStatusId,
+                    TicketStatusId = 1,
                     SeverityLevelId = priority,
                     CreatedById = RequestModel.CreatedById,
                     CategoryId = RequestModel.CategoryId,
@@ -416,8 +422,9 @@ namespace SLAwareApi.Services.SLAware
                     Subject = NewTicket.Subject,
                     Description = NewTicket.Description,
                     SeverityLevelId = NewTicket.SeverityLevelId,
-                    TicketStatusId = NewTicket.TicketStatusId,
-                    SubCategoryId = NewTicket.SubCategoryId,
+                    TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == NewTicket.TicketStatusId).Select(ts =>  ts.Name).FirstOrDefault(),
+                    SubCategory = _slawareContext.TicketSubCategories.Where(ts => ts.Id == NewTicket.SubCategoryId).Select(ts =>  ts.Name).FirstOrDefault(),
+                    Category = _slawareContext.TicketCategories.Where(ts => ts.Id == NewTicket.CategoryId).Select(ts =>  ts.Name).FirstOrDefault(),
                     CreatedById = NewTicket.CreatedById,
                     IsActive = NewTicket.IsActive,
                 };
@@ -482,8 +489,10 @@ namespace SLAwareApi.Services.SLAware
                         Id = x.Id,
                         Description = x.Description,
                         Subject = x.Subject,
-                        CategoryId = x.CategoryId,
-                        SubCategoryId = x.SubCategoryId,
+                        TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
+                        Category = _slawareContext.TicketCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
+                        SubCategory = _slawareContext.TicketSubCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
+
                         AssignedToId = x.AssignedToId,
                         IsActive = x.IsActive,
                     })

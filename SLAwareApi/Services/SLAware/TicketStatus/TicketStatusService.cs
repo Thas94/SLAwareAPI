@@ -27,7 +27,6 @@ namespace SLAwareApi.Services.SLAware
             _globalService = globalService;
         }
 
-
         public async Task<ReturnModel> GetAllTicketStatuses()
         {
             ReturnModel Result = new ReturnModel();

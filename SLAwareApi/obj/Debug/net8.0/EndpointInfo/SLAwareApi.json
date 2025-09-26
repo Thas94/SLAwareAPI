@@ -505,6 +505,46 @@
         }
       }
     },
+    "/api/TicketCategory/subCategory/{id}": {
+      "get": {
+        "tags": [
+          "TicketCategory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TicketStatus": {
       "get": {
         "tags": [
@@ -872,10 +912,6 @@
             "type": "string",
             "nullable": true
           },
-          "ticketStatusId": {
-            "type": "integer",
-            "format": "int64"
-          },
           "categoryId": {
             "type": "integer",
             "format": "int64",
@@ -888,10 +924,6 @@
           "createdById": {
             "type": "integer",
             "format": "int64"
-          },
-          "isActive": {
-            "type": "boolean",
-            "nullable": true
           }
         },
         "additionalProperties": false

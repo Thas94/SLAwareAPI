@@ -127,8 +127,7 @@ namespace SLAwareApi.Services.SLAware.TicketSubCategory
             return Result;
 
         }
-
-
+     
         public async Task<ReturnModel> UpdateTicketSubCategory(long id, UpdateTicketSubCategoryReturnModel RequestModel)
         {
 

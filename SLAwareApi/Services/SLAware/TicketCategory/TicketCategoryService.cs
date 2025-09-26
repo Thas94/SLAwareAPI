@@ -9,6 +9,7 @@ using TFTShuttiAPI.TFTEntities.Helpers;
 using static SLAwareApi.Models.SLAware.Ticket.TicketModel;
 using static SLAwareApi.Models.SLAware.TicketCategory.TicketCategoryModels;
 using static SLAwareApi.Models.SLAware.TicketStatus.TicketStatusModels;
+using static SLAwareApi.Models.SLAware.TicketSubCategory.TicketSubCategoryModels;
 using static SLAwareApi.Models.TFTApp.GlobalsModels;
 
 namespace SLAwareApi.Services.SLAware
@@ -125,6 +126,54 @@ namespace SLAwareApi.Services.SLAware
 
         }
 
+        public async Task<ReturnModel> GetSubCategoriesForCategory(long categoryId)
+        {
+            ReturnModel result = new ReturnModel();
+
+            try
+            {
+                var subCategories = _slawareContext.TicketSubCategories
+                    .Where(x => x.TicketCategoryId == categoryId)
+                    .Select(x => new TicketSubCategoryReturnModel
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        IsActive = x.IsActive,
+                        TicketCategoryId = x.TicketCategoryId,
+                        CreatedAt = x.CreatedAt,
+                        CreatedBy = x.CreatedBy,
+                        UpdatedAt = x.UpdatedAt,
+                        UpdatedBy = x.UpdatedBy,
+                    })
+                    .ToList();
+
+                if (subCategories != null && subCategories.Any())
+                {
+                    result.Status = true;
+                    result.Result = subCategories;
+                    result.error = null;
+                }
+                else
+                {
+                    result.Status = false;
+                    result.Result = subCategories;
+                    result.error = $"No subcategories found for category id: {categoryId}";
+                }
+            }
+            catch (Exception ex)
+            {
+                //Gathering All the Error Details to be saved
+                var err = new ErrorTemplate
+                {
+                    ErrCallingFunction = "Ticket SubCategory Service : Get Sub Categories for Category",
+                    ErrErrorMessage = ex.Message,
+                    ErrStacktrace = ex.StackTrace,
+                };
+                await _globalService.LogError(err);
+            }
+
+            return result;
+        }
 
         public async Task<ReturnModel> UpdateTicketCategory(long id, UpdateTicketCategoryRequestModel RequestModel)
         {
@@ -327,8 +376,6 @@ namespace SLAwareApi.Services.SLAware
 
         //}
 
-
-
         public async Task<ReturnModel> CreateTicketCategory(CreateTicketCategoryRequestModel RequestModel)
         {
 
@@ -399,7 +446,6 @@ namespace SLAwareApi.Services.SLAware
 
 
         }
-
 
     }
 }
