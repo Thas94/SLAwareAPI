@@ -9,7 +9,8 @@ namespace SLAwareApi.Models.SLAware.Ticket
         {
             public long Id { get; set; }
 
-            public string TicketNumber { get; set; }
+            public string TicketNumber { get; set; } = null!;
+            public string TicketStatus { get; set; } = null!;
 
             public string Subject { get; set; } = null!;
 
@@ -18,6 +19,9 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public long TicketStatusId { get; set; }
 
             public long SeverityLevelId { get; set; }
+            public string SeverityLevel { get; set; } = null!;
+            public string Category { get; set; } = null!;
+            public string SubCategory { get; set; } = null!;
 
             public long CreatedById { get; set; }
 
@@ -26,7 +30,14 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public long SubCategoryId { get; set; }
             public long? CategoryId { get; set; }
 
+            public bool? IsSlaResponseBreach { get; set; }
+            public bool? IsSlaResolutionBreach { get; set; }
+            public TimeOnly? RemainingResponseTime { get; set; }
+            public TimeOnly? RemainingResolutionTime { get; set; }
+
             public DateTime CreatedAt { get; set; }
+            public DateTime InitialResponseDue { get; set; }
+            public DateTime TargetResolutionDue { get; set; }
             public bool? IsActive { get; set; }
 
 
@@ -66,7 +77,7 @@ namespace SLAwareApi.Models.SLAware.Ticket
 
             public long CreatedById { get; set; }
 
-            public bool? IsActive { get; set; }
+            //public bool? IsActive { get; set; }
 
             //public long SeverityLevelId { get; set; }
             //public long Id { get; set; }

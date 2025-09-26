@@ -196,23 +196,50 @@ namespace SLAwareApi.Services.SLAware
 
             try
             {
-                TicketReturn = _slawareContext.Tickets.Where(t => t.AssignedToId == userId)
-                    .Select(x => new TicketReturnModel()
-                    {
-                        Id = x.Id,
-                        TicketNumber = x.TicketNumber,
-                        Description = x.Description,
-                        Subject = x.Subject,
-                        //TicketStatus = x.TicketStatusId,
-                        SeverityLevelId = x.SeverityLevelId,
-                        CreatedById = x.CreatedById,
-                        AssignedToId = x.AssignedToId,
-                        SubCategoryId = x.SubCategoryId,
-                        CategoryId = x.CategoryId,
-                        CreatedAt = x.CreatedAt,
+                TicketReturn = (from ticket in _slawareContext.Tickets
+                                join status in _slawareContext.TicketStatuses on ticket.TicketStatusId equals status.Id
+                                join category in _slawareContext.TicketCategories on ticket.CategoryId equals category.Id
+                                join sub_category in _slawareContext.TicketSubCategories on ticket.SubCategoryId equals sub_category.Id
+                                join severity in _slawareContext.SlaSeverityLevels on ticket.SeverityLevelId equals severity.Id
+                                join sla in _slawareContext.TicketSlaTrackings on ticket.Id equals sla.TicketId
+                                where status.Active && category.IsActive && sub_category.IsActive && ticket.AssignedToId == userId
+                                select new TicketReturnModel
+                                {
+                                    Id = ticket.Id,
+                                    TicketNumber = ticket.TicketNumber,
+                                    Description = ticket.Description,
+                                    Subject = ticket.Subject,
+                                    SeverityLevel = $"{severity.Severity} - {severity.Name}",
+                                    TicketStatus = status.Name,
+                                    Category = category.Name,
+                                    SubCategory = sub_category.Name,
+                                    CreatedAt = ticket.CreatedAt,
+                                    InitialResponseDue = sla.ResponseDueDtm,
+                                    TargetResolutionDue = sla.ResolutionDueDtm,
+                                    IsSlaResponseBreach = sla.IsResponseSlaBreach,
+                                    IsSlaResolutionBreach = sla.IsResolutionSlaBreach,
+                                    RemainingResponseTime = sla.RemainingResponseDueTime,
+                                    RemainingResolutionTime = sla.RemainingResolutionDueTime
+                                }).ToList();
+
+                //TicketReturn = _slawareContext.Tickets.Where(t => t.AssignedToId == userId)
+                //    .Select(x => new TicketReturnModel()
+                //    {
+                //        Id = x.Id,
+                //        TicketNumber = x.TicketNumber,
+                //        Description = x.Description,
+                //        Subject = x.Subject,
+                //        TicketStatus = _slawareContext.TicketStatuses.FirstOrDefault(y => y.Id == x.TicketStatusId).Name,
+                //        //TicketStatus = x.TicketStatusId,
+                //        SeverityLevelId = x.SeverityLevelId,
+                //        CreatedById = x.CreatedById,
+                //        AssignedToId = x.AssignedToId,
+                //        SubCategoryId = x.SubCategoryId,
+                //        CategoryId = x.CategoryId,
+                //        CreatedAt = x.CreatedAt,
 
 
-                    }).ToList();
+                //    }).ToList();
 
                 if (TicketReturn.Count > 0)
                 {
@@ -331,7 +358,9 @@ namespace SLAwareApi.Services.SLAware
                 track.TicketId = NewTicket.Id;
                 track.SlaSeverityLevelId = priority;
                 track.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.InitialResponseHours, 0, 0));
-                track.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.TargetResolutionHours, 0, 0));                
+                track.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.TargetResolutionHours, 0, 0));
+                //track.RemainingResponseDueTime = !IsWorkingDay(NewTicket.CreatedAt.Date) || !IsWorkingHours(NewTicket.CreatedAt) ? TimeOnly.FromTimeSpan(new TimeSpan((int)sla_rule.InitialResponseHours, 0, 0)) : null;
+                //track.RemainingResolutionDueTime = !IsWorkingDay(NewTicket.CreatedAt.Date) || !IsWorkingHours(NewTicket.CreatedAt) ? TimeOnly.FromTimeSpan(new TimeSpan((int)sla_rule.TargetResolutionHours, 0, 0)) : null;
                 track.CreatedAt = DateTime.Now;
                 track.IsResponseSlaBreach = false;
                 track.IsResolutionSlaBreach = false;

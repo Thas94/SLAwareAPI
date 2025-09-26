@@ -31,7 +31,7 @@ namespace SLAwareApi.Services.SLAware
             {
                 while (remaining > TimeSpan.Zero)
                 {
-                    if (!IsWorkingDay(current.Date))
+                    if (!IsWorkingDay(current.Date) || !IsWorkingHours(current))
                     {
                         current = current.Date.AddDays(1).Add(WorkStart);
                         continue;
