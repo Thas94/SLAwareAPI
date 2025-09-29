@@ -47,16 +47,20 @@ namespace SLAwareApi.Models.SLAware.Ticket
         {
             //public long Id { get; set; }
 
-            public string TicketNumber { get; set; } = null!;
+            //public string TicketNumber { get; set; } = null!;
 
-            public string Subject { get; set; } = null!;
+            //public string Subject { get; set; } = null!;
 
-            public string Description { get; set; } = null!;
+            //public string Description { get; set; } = null!;
 
-            public string TicketStatus { get; set; } = null!;
+            //public string TicketStatus { get; set; } = null!;
 
-            public long TicketSeverityLevelId { get; set; }
-            public long loggedInUserId { get; set; }
+            //public long TicketSeverityLevelId { get; set; }
+            //public long loggedInUserId { get; set; }
+
+            public string? Message { get; set; } = null;
+            public string? Status { get; set; } = null;
+            public long TicketId { get; set; }
 
         }
 

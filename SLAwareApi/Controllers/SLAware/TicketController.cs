@@ -23,7 +23,7 @@ namespace SLAwareApi.Controllers.SLAware
         public async Task<ReturnModel> AssignTicketToAgent(long ticketId, long userId) => await _ticketService.AssignTicketToAgent(ticketId, userId);
 
         [HttpPut]
-        public async Task<ReturnModel> UpdateTicket(long id, UpdateTicketRequestModel RequestModel) => await _ticketService.UpdateTicket(id, RequestModel);
+        public async Task<ReturnModel> UpdateTicket(UpdateTicketRequestModel RequestModel) => await _ticketService.UpdateTicket(RequestModel);
        
         [HttpGet("{id}")]
         public async Task<ReturnModel> GetTicket(long id) => await _ticketService.GetTicket(id);

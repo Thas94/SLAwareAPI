@@ -14,7 +14,7 @@ namespace SLAwareApi.Interfaces.SLAware
         Task<ReturnModel> DeleteTicket(long id);
         Task<ReturnModel> GetAllTickets();
         Task<ReturnModel> AssignTicketToAgent(long ticketId, long userId);
-        Task<ReturnModel> UpdateTicket(long id, UpdateTicketRequestModel RequestModel);
+        Task<ReturnModel> UpdateTicket(UpdateTicketRequestModel RequestModel);
 
         //Task<bool> CreateTicket(CreatetTicketModel createtTicket);
     }

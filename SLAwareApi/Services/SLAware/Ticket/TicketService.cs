@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using SLAwareApi.Entities.SLAware;
 using SLAwareApi.Entities.TFTAPPEntities;
 using SLAwareApi.Interfaces.SLAware;
@@ -7,6 +9,7 @@ using SLAwareApi.Models.SLAware.Ticket;
 using SLAwareApi.Services.SLAware.Base;
 using System;
 using System.Net.Sockets;
+using System.Text.Json;
 using TFTShuttiAPI.TFTEntities.Helpers;
 using static SLAwareApi.Enums.Enums;
 using static SLAwareApi.Models.SLAware.Ticket.TicketModel;
@@ -472,7 +475,7 @@ namespace SLAwareApi.Services.SLAware
             return Result;
         }
 
-        public async Task<ReturnModel> UpdateTicket(long id, UpdateTicketRequestModel RequestModel)
+        public async Task<ReturnModel> UpdateTicket(UpdateTicketRequestModel RequestModel)
         {
 
             ReturnModel Result = new ReturnModel();
@@ -480,11 +483,10 @@ namespace SLAwareApi.Services.SLAware
 
             try
             {
-
+                var ticket = _slawareContext.Tickets.FirstOrDefault(x => x.Id == RequestModel.TicketId);
                 //Check to see if the application already exists
-                var exists = _slawareContext.Tickets.Where(ts => ts.Id == id).FirstOrDefault();
 
-                if (exists == null)
+                if (ticket == null)
                 {
                     Result.Status = false;
                     Result.Result = ticketStatusReturn;
@@ -492,6 +494,19 @@ namespace SLAwareApi.Services.SLAware
                 }
                 else
                 {
+                    //Ticket
+                    ticket.TicketStatusId = _slawareContext.TicketStatuses.FirstOrDefault(x => x.Name == RequestModel.Status).Id;
+
+                    //Status
+
+                    //Message
+                    var model = new TicketMessage();
+                    model.TicketId = ticket.Id;
+                    model.CreatedAt = DateTime.Now;
+                    model.MessageContent = RequestModel.Message;
+                    _slawareContext.TicketMessages.Add(model);
+                    _slawareContext.SaveChanges();
+
                     //Populating the application model to be updated    
                     // Updating Name
                     //if (!string.IsNullOrWhiteSpace(RequestModel))
@@ -512,19 +527,19 @@ namespace SLAwareApi.Services.SLAware
                     //}
 
 
-                    _slawareContext.SaveChanges();
+                    //    _slawareContext.SaveChanges();
 
-                    ticketStatusReturn = _slawareContext.TicketStatuses.Where(x => x.Id == id).Select(x => new TicketStatusReturnModel()
-                    {
-                        Id = x.Id,
-                        Description = x.Description,
-                        Name = x.Name,
-                        Active = x.Active,
-                    }).FirstOrDefault();
+                    //    ticketStatusReturn = _slawareContext.TicketStatuses.Where(x => x.Id == id).Select(x => new TicketStatusReturnModel()
+                    //    {
+                    //        Id = x.Id,
+                    //        Description = x.Description,
+                    //        Name = x.Name,
+                    //        Active = x.Active,
+                    //    }).FirstOrDefault();
 
-                    Result.Status = true;
-                    Result.Result = ticketStatusReturn;
-                    Result.error = null;
+                    //    Result.Status = true;
+                    //    Result.Result = ticketStatusReturn;
+                    //    Result.error = null;
 
                 }
             }
