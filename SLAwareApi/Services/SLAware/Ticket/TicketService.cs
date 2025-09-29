@@ -205,6 +205,7 @@ namespace SLAwareApi.Services.SLAware
                                 join sub_category in _slawareContext.TicketSubCategories on ticket.SubCategoryId equals sub_category.Id
                                 join severity in _slawareContext.SlaSeverityLevels on ticket.SeverityLevelId equals severity.Id
                                 join sla in _slawareContext.TicketSlaTrackings on ticket.Id equals sla.TicketId
+                                let messages = _slawareContext.TicketMessages.Where(x => x.TicketId == ticket.Id).Select(x => x.MessageContent).ToList()
                                 where status.Active && category.IsActive && sub_category.IsActive && ticket.AssignedToId == userId
                                 select new TicketReturnModel
                                 {
@@ -222,27 +223,9 @@ namespace SLAwareApi.Services.SLAware
                                     IsSlaResponseBreach = sla.IsResponseSlaBreach,
                                     IsSlaResolutionBreach = sla.IsResolutionSlaBreach,
                                     RemainingResponseTime = sla.RemainingResponseDueTime,
-                                    RemainingResolutionTime = sla.RemainingResolutionDueTime
+                                    RemainingResolutionTime = sla.RemainingResolutionDueTime,
+                                    Messages = messages
                                 }).ToList();
-
-                //TicketReturn = _slawareContext.Tickets.Where(t => t.AssignedToId == userId)
-                //    .Select(x => new TicketReturnModel()
-                //    {
-                //        Id = x.Id,
-                //        TicketNumber = x.TicketNumber,
-                //        Description = x.Description,
-                //        Subject = x.Subject,
-                //        TicketStatus = _slawareContext.TicketStatuses.FirstOrDefault(y => y.Id == x.TicketStatusId).Name,
-                //        //TicketStatus = x.TicketStatusId,
-                //        SeverityLevelId = x.SeverityLevelId,
-                //        CreatedById = x.CreatedById,
-                //        AssignedToId = x.AssignedToId,
-                //        SubCategoryId = x.SubCategoryId,
-                //        CategoryId = x.CategoryId,
-                //        CreatedAt = x.CreatedAt,
-
-
-                //    }).ToList();
 
                 if (TicketReturn.Count > 0)
                 {

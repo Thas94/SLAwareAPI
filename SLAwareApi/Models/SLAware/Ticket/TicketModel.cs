@@ -39,7 +39,7 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public DateTime InitialResponseDue { get; set; }
             public DateTime TargetResolutionDue { get; set; }
             public bool? IsActive { get; set; }
-
+            public List<string> Messages { get; set; } = null!;
 
 
         }

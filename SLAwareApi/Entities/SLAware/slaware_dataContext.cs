@@ -330,23 +330,10 @@ public partial class slaware_dataContext : DbContext
                 .HasColumnName("updated_by");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.NewTicketStatus).WithMany(p => p.TicketActivityLogNewTicketStatuses)
-                .HasForeignKey(d => d.NewTicketStatusId)
-                .HasConstraintName("FK_ticket_activity_log_ticket_status");
-
-            entity.HasOne(d => d.OldTicketStatus).WithMany(p => p.TicketActivityLogOldTicketStatuses)
-                .HasForeignKey(d => d.OldTicketStatusId)
-                .HasConstraintName("FK_ticket_activity_log_ticket_status1");
-
             entity.HasOne(d => d.Ticket).WithMany(p => p.TicketActivityLogs)
                 .HasForeignKey(d => d.TicketId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ticket_activity_log_ticket");
-
-            entity.HasOne(d => d.User).WithMany(p => p.TicketActivityLogs)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ticket_activity_log_users");
         });
 
         modelBuilder.Entity<TicketBreachLog>(entity =>

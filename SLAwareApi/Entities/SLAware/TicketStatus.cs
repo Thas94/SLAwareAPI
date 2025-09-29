@@ -20,8 +20,4 @@ public partial class TicketStatus
     public DateTime? UpdatedAt { get; set; }
 
     public string? UpdatedBy { get; set; }
-
-    public virtual ICollection<TicketActivityLog> TicketActivityLogNewTicketStatuses { get; set; } = new List<TicketActivityLog>();
-
-    public virtual ICollection<TicketActivityLog> TicketActivityLogOldTicketStatuses { get; set; } = new List<TicketActivityLog>();
 }
