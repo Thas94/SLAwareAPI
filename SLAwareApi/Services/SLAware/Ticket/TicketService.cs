@@ -204,6 +204,7 @@ namespace SLAwareApi.Services.SLAware
                                 join category in _slawareContext.TicketCategories on ticket.CategoryId equals category.Id
                                 join sub_category in _slawareContext.TicketSubCategories on ticket.SubCategoryId equals sub_category.Id
                                 join severity in _slawareContext.SlaSeverityLevels on ticket.SeverityLevelId equals severity.Id
+                                join severity_rules in _slawareContext.SlaSeverityLevelRules on ticket.SeverityLevelId equals severity_rules.SlaSeverityLevelId
                                 join sla in _slawareContext.TicketSlaTrackings on ticket.Id equals sla.TicketId
                                 let messages = _slawareContext.TicketMessages.Where(x => x.TicketId == ticket.Id).Select(x => x.MessageContent).ToList()
                                 where status.Active && category.IsActive && sub_category.IsActive && ticket.AssignedToId == userId
@@ -224,7 +225,9 @@ namespace SLAwareApi.Services.SLAware
                                     IsSlaResolutionBreach = sla.IsResolutionSlaBreach,
                                     RemainingResponseTime = sla.RemainingResponseDueTime,
                                     RemainingResolutionTime = sla.RemainingResolutionDueTime,
-                                    Messages = messages
+                                    Messages = messages,
+                                    ResolutionHours = severity_rules.TargetResolutionHours,
+                                    ResponseHours = severity_rules.InitialResponseHours
                                 }).ToList();
 
                 if (TicketReturn.Count > 0)
@@ -483,12 +486,15 @@ namespace SLAwareApi.Services.SLAware
                     //Status
 
                     //Message
-                    var model = new TicketMessage();
-                    model.TicketId = ticket.Id;
-                    model.CreatedAt = DateTime.Now;
-                    model.MessageContent = RequestModel.Message;
-                    _slawareContext.TicketMessages.Add(model);
-                    _slawareContext.SaveChanges();
+                    if (!string.IsNullOrEmpty(RequestModel.Message))
+                    {
+                        var model = new TicketMessage();
+                        model.TicketId = ticket.Id;
+                        model.CreatedAt = DateTime.Now;
+                        model.MessageContent = RequestModel.Message;
+                        _slawareContext.TicketMessages.Add(model);
+                        _slawareContext.SaveChanges();
+                    }
 
                     //Populating the application model to be updated    
                     // Updating Name
@@ -520,14 +526,17 @@ namespace SLAwareApi.Services.SLAware
                     //        Active = x.Active,
                     //    }).FirstOrDefault();
 
-                    //    Result.Status = true;
-                    //    Result.Result = ticketStatusReturn;
-                    //    Result.error = null;
+                    Result.Status = true;
+                    Result.Result = null;
+                    Result.error = null;
 
                 }
             }
             catch (Exception ex)
             {
+                Result.Status = false;
+                Result.Result = null;
+                Result.error = ex.Message.ToString();
                 //Gathering All the Error Details to be saved
                 var Err = new ErrorTemplate
                 {

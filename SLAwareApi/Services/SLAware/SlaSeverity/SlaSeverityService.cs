@@ -31,11 +31,17 @@ namespace SLAwareApi.Services.SLAware
             {
                 while (remaining > TimeSpan.Zero)
                 {
-                    if (!IsWorkingDay(current.Date) || !IsWorkingHours(current))
+                    if (!IsWorkingDay(current.Date))
                     {
                         current = current.Date.AddDays(1).Add(WorkStart);
                         continue;
                     }
+                    
+                    //if (!IsWorkingHours(current))
+                    //{
+                    //    current = current.Date.Add(WorkStart);
+                    //    continue;
+                    //}
 
                     var workStartToday = current.Date.Add(WorkStart);
                     var workEndToday = current.Date.Add(WorkEnd);

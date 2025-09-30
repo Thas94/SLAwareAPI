@@ -40,7 +40,8 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public DateTime TargetResolutionDue { get; set; }
             public bool? IsActive { get; set; }
             public List<string> Messages { get; set; } = null!;
-
+            public long? ResponseHours { get; set; }
+            public long? ResolutionHours { get; set; }
 
         }
         public class UpdateTicketRequestModel
