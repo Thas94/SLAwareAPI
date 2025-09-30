@@ -24,6 +24,4 @@ public partial class TicketActivityLog
     public DateTime? UpdatedAt { get; set; }
 
     public string? UpdatedBy { get; set; }
-
-    public virtual Ticket Ticket { get; set; } = null!;
 }

@@ -207,6 +207,7 @@ namespace SLAwareApi.Services.SLAware
                                 join severity_rules in _slawareContext.SlaSeverityLevelRules on ticket.SeverityLevelId equals severity_rules.SlaSeverityLevelId
                                 join sla in _slawareContext.TicketSlaTrackings on ticket.Id equals sla.TicketId
                                 let messages = _slawareContext.TicketMessages.Where(x => x.TicketId == ticket.Id).Select(x => x.MessageContent).ToList()
+                                let activityLogs = _slawareContext.TicketActivityLogs.Where(x => x.TicketId == ticket.Id).Select(x => new TicketActivity { Created_At = x.CreatedAt, Description = x.Description}).ToList()
                                 where status.Active && category.IsActive && sub_category.IsActive && ticket.AssignedToId == userId
                                 select new TicketReturnModel
                                 {
@@ -226,6 +227,7 @@ namespace SLAwareApi.Services.SLAware
                                     RemainingResponseTime = sla.RemainingResponseDueTime,
                                     RemainingResolutionTime = sla.RemainingResolutionDueTime,
                                     Messages = messages,
+                                    TicketActivities = activityLogs,
                                     ResolutionHours = severity_rules.TargetResolutionHours,
                                     ResponseHours = severity_rules.InitialResponseHours
                                 }).ToList();
@@ -364,6 +366,7 @@ namespace SLAwareApi.Services.SLAware
                 activity.CreatedAt = NewTicket.CreatedAt;
                 var user = _context.Users.FirstOrDefault(x => x.Id == NewTicket.CreatedById);
                 activity.CreatedBy = $"{user.FirstName} {user.LastName}";
+                activity.NewTicketStatusId = (int)Enums.Enums.TicketStatus.New;
                 _slawareContext.TicketActivityLogs.Add(activity);
                 _slawareContext.SaveChanges();
 
@@ -493,6 +496,25 @@ namespace SLAwareApi.Services.SLAware
                         model.CreatedAt = DateTime.Now;
                         model.MessageContent = RequestModel.Message;
                         _slawareContext.TicketMessages.Add(model);
+                        //_slawareContext.SaveChanges();
+                    }
+
+                    //Activity
+                    if(_slawareContext.TicketActivityLogs.OrderBy(x => x.Id).LastOrDefault(x => x.TicketId == RequestModel.TicketId) is { } log)
+                    {
+                        var act = new TicketActivityLog();
+                        var statuses = _slawareContext.TicketStatuses.Where(x => x.Active).ToList();
+                        var user = _context.Users.FirstOrDefault(x => x.Id == RequestModel.UserId);
+                        var oldSt = log.NewTicketStatusId;
+                        var newSt = ticket.TicketStatusId;
+                        act.NewTicketStatusId = newSt;
+                        act.OldTicketStatusId = oldSt;
+                        act.Description = $"Ticket status changed from {statuses.FirstOrDefault(x => x.Id == oldSt).Name} to {statuses.FirstOrDefault(x => x.Id == newSt).Name}";
+                        act.CreatedAt = DateTime.Now;
+                        act.CreatedBy = $"{user.FirstName} {user.LastName}";
+                        act.UserId = RequestModel.UserId;
+                        act.TicketId = log.TicketId;
+                        _slawareContext.TicketActivityLogs.Add(act);
                         _slawareContext.SaveChanges();
                     }
 

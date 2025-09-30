@@ -42,6 +42,7 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public List<string> Messages { get; set; } = null!;
             public long? ResponseHours { get; set; }
             public long? ResolutionHours { get; set; }
+            public List<TicketActivity> TicketActivities { get; set; } = new List<TicketActivity>();
 
         }
         public class UpdateTicketRequestModel
@@ -62,6 +63,7 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public string? Message { get; set; } = null;
             public string? Status { get; set; } = null;
             public long TicketId { get; set; }
+            public long UserId { get; set; }
 
         }
 
@@ -91,6 +93,11 @@ namespace SLAwareApi.Models.SLAware.Ticket
             //public long? AssignedToId { get; set; }
         }
 
+        public class TicketActivity
+        {
+            public string Description { get; set; } = null!;
+            public DateTime Created_At { get; set; }
+        }
 
     }
 }

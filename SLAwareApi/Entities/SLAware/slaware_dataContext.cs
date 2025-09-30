@@ -329,11 +329,6 @@ public partial class slaware_dataContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("updated_by");
             entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            entity.HasOne(d => d.Ticket).WithMany(p => p.TicketActivityLogs)
-                .HasForeignKey(d => d.TicketId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ticket_activity_log_ticket");
         });
 
         modelBuilder.Entity<TicketBreachLog>(entity =>
