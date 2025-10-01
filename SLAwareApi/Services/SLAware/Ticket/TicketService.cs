@@ -496,7 +496,7 @@ namespace SLAwareApi.Services.SLAware
                         model.CreatedAt = DateTime.Now;
                         model.MessageContent = RequestModel.Message;
                         _slawareContext.TicketMessages.Add(model);
-                        //_slawareContext.SaveChanges();
+                        _slawareContext.SaveChanges();
                     }
 
                     //Activity
