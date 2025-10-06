@@ -36,6 +36,7 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public TimeOnly? RemainingResolutionTime { get; set; }
             public DateTime? Response_PauseAt { get; set; }
             public DateTime? Resolution_PauseAt { get; set; }
+            public DateTime? Resolved_At { get; set; }
 
             public DateTime CreatedAt { get; set; }
             public DateTime InitialResponseDue { get; set; }

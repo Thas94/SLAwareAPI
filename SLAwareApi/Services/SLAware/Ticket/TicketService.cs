@@ -232,6 +232,7 @@ namespace SLAwareApi.Services.SLAware
                                     ResponseHours = severity_rules.InitialResponseHours,
                                     Response_PauseAt = sla.ResponsePausedDtm,
                                     Resolution_PauseAt = sla.ResolutionPausedDtm,
+                                    Resolved_At = sla.ResolvedDtm
                                 }).ToList();
 
                 if (TicketReturn.Count > 0)
@@ -560,6 +561,10 @@ namespace SLAwareApi.Services.SLAware
             {
                 TicketPause(ticketId);
             }
+            if(ticketStatusId == (int)Enums.Enums.TicketStatus.Resolved)
+            {
+                TicketClose(ticketId);
+            }
             else
             {
                 TicketResume(ticketId);
@@ -604,6 +609,27 @@ namespace SLAwareApi.Services.SLAware
             if (ticket.ResolutionPausedDtm.HasValue)
             {
                 ticket.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(DateTime.Now, ticket.RemainingResolutionDueTime.Value.ToTimeSpan());
+                ticket.ResolutionPausedDtm = null;
+                ticket.RemainingResolutionDueTime = null;
+            }
+
+            _slawareContext.SaveChanges();
+        }
+
+        private void TicketClose(long ticketId)
+        {
+            var ticket = _slawareContext.TicketSlaTrackings.FirstOrDefault(x => x.TicketId == ticketId);
+
+            ticket.ResolvedDtm = DateTime.Now;
+
+            if (ticket.ResponsePausedDtm.HasValue)
+            {
+                ticket.ResponsePausedDtm = null;
+                ticket.RemainingResponseDueTime = null;
+            }
+
+            if (ticket.ResolutionPausedDtm.HasValue)
+            {
                 ticket.ResolutionPausedDtm = null;
                 ticket.RemainingResolutionDueTime = null;
             }
