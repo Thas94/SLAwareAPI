@@ -229,7 +229,9 @@ namespace SLAwareApi.Services.SLAware
                                     Messages = messages,
                                     TicketActivities = activityLogs,
                                     ResolutionHours = severity_rules.TargetResolutionHours,
-                                    ResponseHours = severity_rules.InitialResponseHours
+                                    ResponseHours = severity_rules.InitialResponseHours,
+                                    Response_PauseAt = sla.ResponsePausedDtm,
+                                    Resolution_PauseAt = sla.ResolutionPausedDtm,
                                 }).ToList();
 
                 if (TicketReturn.Count > 0)
@@ -486,7 +488,15 @@ namespace SLAwareApi.Services.SLAware
                     //Ticket
                     ticket.TicketStatusId = _slawareContext.TicketStatuses.FirstOrDefault(x => x.Name == RequestModel.Status).Id;
 
-                    //Status
+
+                    //SLA Tracking
+                    var sla = _slawareContext.TicketSlaTrackings.FirstOrDefault(x => x.TicketId == ticket.Id);
+
+                    if (!sla.FirstResponseAt.HasValue)
+                    {
+                        sla.FirstResponseAt = DateTime.Now;
+                    }
+                    _slawareContext.SaveChanges();
 
                     //Message
                     if (!string.IsNullOrEmpty(RequestModel.Message))
@@ -496,7 +506,7 @@ namespace SLAwareApi.Services.SLAware
                         model.CreatedAt = DateTime.Now;
                         model.MessageContent = RequestModel.Message;
                         _slawareContext.TicketMessages.Add(model);
-                        _slawareContext.SaveChanges();
+                       _slawareContext.SaveChanges();
                     }
 
                     //Activity
@@ -515,38 +525,11 @@ namespace SLAwareApi.Services.SLAware
                         act.UserId = RequestModel.UserId;
                         act.TicketId = log.TicketId;
                         _slawareContext.TicketActivityLogs.Add(act);
-                        _slawareContext.SaveChanges();
+                        //_slawareContext.SaveChanges();
                     }
 
-                    //Populating the application model to be updated    
-                    // Updating Name
-                    //if (!string.IsNullOrWhiteSpace(RequestModel))
-                    //{
-                    //    exists.Name = RequestModel.Name;
-                    //}
+                    OnTicketStatusChanged(ticket.Id, ticket.TicketStatusId);
 
-                    //// Updating IsActive
-                    //if (RequestModel.Active.HasValue)
-                    //{
-                    //    exists.Active = RequestModel.Active.Value;
-                    //}
-
-                    //// Updating Description
-                    //if (!string.IsNullOrWhiteSpace(RequestModel.Description))
-                    //{
-                    //    exists.Description = RequestModel.Description;
-                    //}
-
-
-                    //    _slawareContext.SaveChanges();
-
-                    //    ticketStatusReturn = _slawareContext.TicketStatuses.Where(x => x.Id == id).Select(x => new TicketStatusReturnModel()
-                    //    {
-                    //        Id = x.Id,
-                    //        Description = x.Description,
-                    //        Name = x.Name,
-                    //        Active = x.Active,
-                    //    }).FirstOrDefault();
 
                     Result.Status = true;
                     Result.Result = null;
@@ -569,8 +552,63 @@ namespace SLAwareApi.Services.SLAware
                 await _globalService.LogError(Err);
             }
             return Result;
+        }
 
+        private void OnTicketStatusChanged(long ticketId, long ticketStatusId)
+        {
+            if (ticketStatusId == (int)Enums.Enums.TicketStatus.AwaitingFeedback)
+            {
+                TicketPause(ticketId);
+            }
+            else
+            {
+                TicketResume(ticketId);
+            }
+        }
 
+        private void TicketPause(long ticketId)
+        {
+            var ticket = _slawareContext.TicketSlaTrackings.FirstOrDefault(x => x.TicketId == ticketId);
+
+            if (!ticket.ResponsePausedDtm.HasValue)
+            {
+                if (!ticket.IsResponseSlaBreach.Value && DateTime.Now <= ticket.ResponseDueDtm)
+                {
+                    ticket.ResponsePausedDtm = DateTime.Now;
+                    ticket.RemainingResponseDueTime = TimeOnly.FromTimeSpan(ticket.ResponseDueDtm - DateTime.Now);
+                }
+            }
+
+            if(!ticket.ResolutionPausedDtm.HasValue)
+            {
+                if (!ticket.IsResolutionSlaBreach.Value && DateTime.Now <= ticket.ResolutionDueDtm)
+                {
+                    ticket.ResolutionPausedDtm = DateTime.Now;
+                    ticket.RemainingResolutionDueTime = TimeOnly.FromTimeSpan(ticket.ResolutionDueDtm - DateTime.Now);
+                }
+            }
+            _slawareContext.SaveChanges();
+        }
+
+        private void TicketResume(long ticketId)
+        {
+            var ticket = _slawareContext.TicketSlaTrackings.FirstOrDefault(x => x.TicketId == ticketId);
+
+            if (ticket.ResponsePausedDtm.HasValue)
+            {
+                ticket.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(DateTime.Now, ticket.RemainingResponseDueTime.Value.ToTimeSpan());
+                ticket.ResponsePausedDtm = null;
+                ticket.RemainingResponseDueTime = null;
+            }
+            
+            if (ticket.ResolutionPausedDtm.HasValue)
+            {
+                ticket.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(DateTime.Now, ticket.RemainingResolutionDueTime.Value.ToTimeSpan());
+                ticket.ResolutionPausedDtm = null;
+                ticket.RemainingResolutionDueTime = null;
+            }
+
+            _slawareContext.SaveChanges();
         }
     }
 }

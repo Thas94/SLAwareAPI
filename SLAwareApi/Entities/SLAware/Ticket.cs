@@ -36,6 +36,4 @@ public partial class Ticket
     public virtual ICollection<TicketMessage> TicketMessages { get; set; } = new List<TicketMessage>();
 
     public virtual ICollection<TicketNotification> TicketNotifications { get; set; } = new List<TicketNotification>();
-
-    public virtual ICollection<TicketSlaTracking> TicketSlaTrackings { get; set; } = new List<TicketSlaTracking>();
 }

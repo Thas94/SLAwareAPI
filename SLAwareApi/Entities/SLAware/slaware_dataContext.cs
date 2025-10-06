@@ -479,14 +479,14 @@ public partial class slaware_dataContext : DbContext
                 .HasColumnName("first_response_at");
             entity.Property(e => e.IsResolutionSlaBreach).HasColumnName("is_resolution_sla_breach");
             entity.Property(e => e.IsResponseSlaBreach).HasColumnName("is_response_sla_breach");
-            entity.Property(e => e.PausedDtm)
-                .HasColumnType("datetime")
-                .HasColumnName("paused_dtm");
             entity.Property(e => e.RemainingResolutionDueTime).HasColumnName("remaining_resolution_due_time");
             entity.Property(e => e.RemainingResponseDueTime).HasColumnName("remaining_response_due_time");
             entity.Property(e => e.ResolutionDueDtm)
                 .HasColumnType("datetime")
                 .HasColumnName("resolution_due_dtm");
+            entity.Property(e => e.ResolutionPausedDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("resolution_paused_dtm");
             entity.Property(e => e.ResolutionSlaBreachDtm)
                 .HasColumnType("datetime")
                 .HasColumnName("resolution_sla_breach_dtm");
@@ -496,16 +496,14 @@ public partial class slaware_dataContext : DbContext
             entity.Property(e => e.ResponseDueDtm)
                 .HasColumnType("datetime")
                 .HasColumnName("response_due_dtm");
+            entity.Property(e => e.ResponsePausedDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("response_paused_dtm");
             entity.Property(e => e.ResponseSlaBreachDtm)
                 .HasColumnType("datetime")
                 .HasColumnName("response_sla_breach_dtm");
             entity.Property(e => e.SlaSeverityLevelId).HasColumnName("sla_severity_level_Id");
             entity.Property(e => e.TicketId).HasColumnName("ticket_Id");
-
-            entity.HasOne(d => d.Ticket).WithMany(p => p.TicketSlaTrackings)
-                .HasForeignKey(d => d.TicketId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ticket_sla_tracking_ticket");
         });
 
         modelBuilder.Entity<TicketStatus>(entity =>

@@ -14,10 +14,10 @@
         {
             New = 1,
             Assigned = 2,
-            InProgress = 3,
-            AwaitingFeedback = 4,
-            Resolved = 5,
-            Closed = 6,
+            InProgress = 4,
+            AwaitingFeedback = 6,
+            Resolved = 7,
+            Closed = 8,
         }
     }
 }

@@ -34,6 +34,8 @@ namespace SLAwareApi.Models.SLAware.Ticket
             public bool? IsSlaResolutionBreach { get; set; }
             public TimeOnly? RemainingResponseTime { get; set; }
             public TimeOnly? RemainingResolutionTime { get; set; }
+            public DateTime? Response_PauseAt { get; set; }
+            public DateTime? Resolution_PauseAt { get; set; }
 
             public DateTime CreatedAt { get; set; }
             public DateTime InitialResponseDue { get; set; }

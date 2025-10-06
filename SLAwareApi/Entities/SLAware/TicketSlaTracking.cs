@@ -21,7 +21,9 @@ public partial class TicketSlaTracking
 
     public TimeOnly? RemainingResolutionDueTime { get; set; }
 
-    public DateTime? PausedDtm { get; set; }
+    public DateTime? ResponsePausedDtm { get; set; }
+
+    public DateTime? ResolutionPausedDtm { get; set; }
 
     public DateTime? ResolvedDtm { get; set; }
 
@@ -34,6 +36,4 @@ public partial class TicketSlaTracking
     public DateTime? ResponseSlaBreachDtm { get; set; }
 
     public DateTime? ResolutionSlaBreachDtm { get; set; }
-
-    public virtual Ticket Ticket { get; set; } = null!;
 }
