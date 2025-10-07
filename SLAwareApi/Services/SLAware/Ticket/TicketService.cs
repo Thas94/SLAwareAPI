@@ -565,7 +565,7 @@ namespace SLAwareApi.Services.SLAware
             {
                 TicketClose(ticketId);
             }
-            else
+            else if(ticketStatusId != (int)Enums.Enums.TicketStatus.AwaitingFeedback && ticketStatusId != (int)Enums.Enums.TicketStatus.Resolved)
             {
                 TicketResume(ticketId);
             }
