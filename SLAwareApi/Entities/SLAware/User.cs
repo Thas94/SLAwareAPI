@@ -23,8 +23,6 @@ public partial class User
 
     public DateTime UpdatedAt { get; set; }
 
-    public virtual ICollection<TicketActivityLog> TicketActivityLogs { get; set; } = new List<TicketActivityLog>();
-
     public virtual ICollection<TicketNotification> TicketNotifications { get; set; } = new List<TicketNotification>();
 
     public virtual ICollection<UserCompany> UserCompanies { get; set; } = new List<UserCompany>();

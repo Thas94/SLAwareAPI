@@ -6,10 +6,6 @@ namespace SLAwareApi.Entities.SLAware;
 
 public partial class slaware_dataContext : DbContext
 {
-    public slaware_dataContext()
-    {
-    }
-
     public slaware_dataContext(DbContextOptions<slaware_dataContext> options)
         : base(options)
     {
@@ -35,6 +31,8 @@ public partial class slaware_dataContext : DbContext
 
     public virtual DbSet<TicketActivityLog> TicketActivityLogs { get; set; }
 
+    public virtual DbSet<TicketBreachLog> TicketBreachLogs { get; set; }
+
     public virtual DbSet<TicketCategory> TicketCategories { get; set; }
 
     public virtual DbSet<TicketMessage> TicketMessages { get; set; }
@@ -59,14 +57,8 @@ public partial class slaware_dataContext : DbContext
 
     public virtual DbSet<UserRole> UserRoles { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=LAPTOP-VM0M57UP\\SQLEXPRESS;Database=SLAwareDB;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.UseCollation("Latin1_General_CI_AS");
-
         modelBuilder.Entity<Client>(entity =>
         {
             entity.ToTable("client");
@@ -181,7 +173,7 @@ public partial class slaware_dataContext : DbContext
 
         modelBuilder.Entity<SlaSeverityLevel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__sla_seve__3213E83F7DA6CE53");
+            entity.HasKey(e => e.Id).HasName("PK__sla_seve__3213E83FADCFCAD3");
 
             entity.ToTable("sla_severity_levels");
 
@@ -213,7 +205,7 @@ public partial class slaware_dataContext : DbContext
 
         modelBuilder.Entity<SlaSeverityLevelRule>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__sla_seve__3213E83F6810A26A");
+            entity.HasKey(e => e.Id).HasName("PK__sla_seve__3213E83FC0D22A40");
 
             entity.ToTable("sla_severity_level_rules");
 
@@ -244,7 +236,7 @@ public partial class slaware_dataContext : DbContext
 
         modelBuilder.Entity<SubCategorySeverityLevel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__sub_cate__3213E83F280EA3E5");
+            entity.HasKey(e => e.Id).HasName("PK__sub_cate__3213E83F15CA460D");
 
             entity.ToTable("sub_category_severity_level");
 
@@ -272,12 +264,12 @@ public partial class slaware_dataContext : DbContext
             entity.HasOne(d => d.SlaSeverityLevel).WithMany(p => p.SubCategorySeverityLevels)
                 .HasForeignKey(d => d.SlaSeverityLevelId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__sub_categ__sla_s__30C33EC3");
+                .HasConstraintName("FK__sub_categ__sla_s__75A278F5");
 
             entity.HasOne(d => d.SubCategory).WithMany(p => p.SubCategorySeverityLevels)
                 .HasForeignKey(d => d.SubCategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__sub_categ__sub_c__2FCF1A8A");
+                .HasConstraintName("FK__sub_categ__sub_c__74AE54BC");
         });
 
         modelBuilder.Entity<Ticket>(entity =>
@@ -339,30 +331,33 @@ public partial class slaware_dataContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("updated_by");
             entity.Property(e => e.UserId).HasColumnName("user_id");
+        });
 
-            entity.HasOne(d => d.NewTicketStatus).WithMany(p => p.TicketActivityLogNewTicketStatuses)
-                .HasForeignKey(d => d.NewTicketStatusId)
-                .HasConstraintName("FK_ticket_activity_log_ticket_status");
+        modelBuilder.Entity<TicketBreachLog>(entity =>
+        {
+            entity.ToTable("ticket_breach_logs");
 
-            entity.HasOne(d => d.OldTicketStatus).WithMany(p => p.TicketActivityLogOldTicketStatuses)
-                .HasForeignKey(d => d.OldTicketStatusId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ticket_activity_log_ticket_status1");
-
-            entity.HasOne(d => d.Ticket).WithMany(p => p.TicketActivityLogs)
-                .HasForeignKey(d => d.TicketId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ticket_activity_log_ticket");
-
-            entity.HasOne(d => d.User).WithMany(p => p.TicketActivityLogs)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ticket_activity_log_users");
+            entity.Property(e => e.ResolutionBreachedDate)
+                .HasColumnType("datetime")
+                .HasColumnName("resolution_breached_date");
+            entity.Property(e => e.ResolutionDueDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("resolution_due_dtm");
+            entity.Property(e => e.ResolutionRemainingTime).HasColumnName("resolution_remaining_time");
+            entity.Property(e => e.ResponseBreachedDate)
+                .HasColumnType("datetime")
+                .HasColumnName("response_breached_date");
+            entity.Property(e => e.ResponseDueDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("response_due_dtm");
+            entity.Property(e => e.ResponseRemainingTime).HasColumnName("response_remaining_time");
+            entity.Property(e => e.TicketId).HasColumnName("ticket_id");
+            entity.Property(e => e.TimeStamp).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<TicketCategory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ticket_c__3213E83FA9778AB5");
+            entity.HasKey(e => e.Id).HasName("PK__ticket_c__3213E83F264495A0");
 
             entity.ToTable("ticket_category");
 
@@ -486,27 +481,31 @@ public partial class slaware_dataContext : DbContext
                 .HasColumnName("first_response_at");
             entity.Property(e => e.IsResolutionSlaBreach).HasColumnName("is_resolution_sla_breach");
             entity.Property(e => e.IsResponseSlaBreach).HasColumnName("is_response_sla_breach");
-            entity.Property(e => e.PausedDtm)
-                .HasColumnType("datetime")
-                .HasColumnName("paused_dtm");
             entity.Property(e => e.RemainingResolutionDueTime).HasColumnName("remaining_resolution_due_time");
             entity.Property(e => e.RemainingResponseDueTime).HasColumnName("remaining_response_due_time");
             entity.Property(e => e.ResolutionDueDtm)
                 .HasColumnType("datetime")
                 .HasColumnName("resolution_due_dtm");
+            entity.Property(e => e.ResolutionPausedDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("resolution_paused_dtm");
+            entity.Property(e => e.ResolutionSlaBreachDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("resolution_sla_breach_dtm");
             entity.Property(e => e.ResolvedDtm)
                 .HasColumnType("datetime")
                 .HasColumnName("resolved_dtm");
             entity.Property(e => e.ResponseDueDtm)
                 .HasColumnType("datetime")
                 .HasColumnName("response_due_dtm");
+            entity.Property(e => e.ResponsePausedDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("response_paused_dtm");
+            entity.Property(e => e.ResponseSlaBreachDtm)
+                .HasColumnType("datetime")
+                .HasColumnName("response_sla_breach_dtm");
             entity.Property(e => e.SlaSeverityLevelId).HasColumnName("sla_severity_level_Id");
             entity.Property(e => e.TicketId).HasColumnName("ticket_Id");
-
-            entity.HasOne(d => d.Ticket).WithMany(p => p.TicketSlaTrackings)
-                .HasForeignKey(d => d.TicketId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ticket_sla_tracking_ticket");
         });
 
         modelBuilder.Entity<TicketStatus>(entity =>
@@ -539,7 +538,7 @@ public partial class slaware_dataContext : DbContext
 
         modelBuilder.Entity<TicketSubCategory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ticket_s__3213E83FA3F385C6");
+            entity.HasKey(e => e.Id).HasName("PK__ticket_s__3213E83F0E50E4B1");
 
             entity.ToTable("ticket_sub_category");
 
@@ -671,7 +670,7 @@ public partial class slaware_dataContext : DbContext
 
         modelBuilder.Entity<UserCompany>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__user_com__3213E83F5C43BD04");
+            entity.HasKey(e => e.Id).HasName("PK__user_com__3213E83F1F98F811");
 
             entity.ToTable("user_company");
 
@@ -704,7 +703,7 @@ public partial class slaware_dataContext : DbContext
 
         modelBuilder.Entity<UserRole>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__user_rol__3213E83F0A4DEF74");
+            entity.HasKey(e => e.Id).HasName("PK__user_rol__3213E83FF25189E7");
 
             entity.ToTable("user_roles");
 

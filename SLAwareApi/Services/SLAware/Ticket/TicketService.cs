@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using SLAwareApi.Entities.SLAware;
 using SLAwareApi.Entities.TFTAPPEntities;
 using SLAwareApi.Interfaces.SLAware;
 using SLAwareApi.Models.SLAware;
+using SLAwareApi.Models.SLAware.Ticket;
 using SLAwareApi.Services.SLAware.Base;
 using System;
 using System.Net.Sockets;
+using System.Text.Json;
 using TFTShuttiAPI.TFTEntities.Helpers;
 using static SLAwareApi.Enums.Enums;
 using static SLAwareApi.Models.SLAware.Ticket.TicketModel;
@@ -29,78 +33,6 @@ namespace SLAwareApi.Services.SLAware
 
         }
 
-        //public async Task<ReturnModel> CreateTicket(CreatetTicketModel createtTicket)
-        //{
-
-        //    ReturnModel Result = new ReturnModel();
-
-
-
-        //    try
-        //    {
-        //        //Create ticket
-        //        var ticketModel = new Ticket();
-        //        ticketModel.Subject = createtTicket.Subject;
-        //        ticketModel.Description = createtTicket.Description;
-        //        ticketModel.TicketStatusId = createtTicket.TicketStatusId;
-        //        ticketModel.SeverityLevelId = createtTicket.SeverityLevelId;
-        //        ticketModel.CreatedById = createtTicket.CreateById;
-        //        ticketModel.CreatedAt = DateTime.Now;
-        //        ticketModel.SubCategoryId = createtTicket.SubCategorylId;
-        //        _slawareContext.Tickets.Add(ticketModel);
-        //        //_slaware_DataContext.SaveChanges();
-
-        //        //Create message
-        //        var messageModel = new TicketMessage();
-        //        messageModel.TicketId = ticketModel.Id;
-        //        messageMosdel.MessageContent = createtTicket.Message;
-        //        messageModel.CreatedAt = DateTime.Now;
-        //        _slawareContext.TicketMessages.Add(messageModel);
-        //        //_slaware_DataContext.SaveChanges();
-
-        //        //SLA tracking
-        //        foreach (var sev in createtTicket.SlaSeverities)
-        //        {
-        //            var track = new TicketSlaTracking();
-        //            track.TicketId = ticketModel.Id;
-        //            track.SlaSeverityLevelId = sev.Id;
-        //            track.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(ticketModel.CreatedAt, new TimeSpan((int)sev.InitialResponseHours, 0, 0));
-        //            track.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(ticketModel.CreatedAt, new TimeSpan((int)sev.TargetResolutionHours, 0, 0));
-        //            track.CreatedAt = DateTime.Now;
-        //            _slawareContext.TicketSlaTrackings.Add(track);
-        //            //_slaware_DataContext.SaveChanges();
-        //        }
-
-
-        //        if (ticketModel != null)
-        //        {
-        //            Result.Status = true;
-        //            Result.Result = ticketModel;
-        //            Result.error = null;
-        //        }
-        //        else
-        //        {
-        //            Result.Status = false;
-        //            Result.Result = null;
-        //            Result.error = "Internal server error.";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //Gathering All the Error Details to be saved
-        //        var Err = new ErrorTemplate
-        //        {
-        //            ErrCallingFunction = "Ticket Service: Get Ticket List",
-        //            ErrErrorMessage = ex.Message.ToString(),
-        //            ErrStacktrace = ex.StackTrace.ToString(),
-        //        };
-        //        //await _globalService.LogError(Err);
-
-        //    }
-        //    return Result;
-        //}
-
-
         public async Task<ReturnModel> GetTicket(long id)
         {
             ReturnModel Result = new ReturnModel();
@@ -115,12 +47,12 @@ namespace SLAwareApi.Services.SLAware
                         TicketNumber = x.TicketNumber,
                         Description = x.Description,
                         Subject = x.Subject,
-                        TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
+                        TicketStatusId = x.TicketStatusId,
                         SeverityLevelId = x.SeverityLevelId,
                         CreatedById = x.CreatedById,
                         AssignedToId = x.AssignedToId,
-                        Category = _slawareContext.TicketCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
-                        SubCategory = _slawareContext.TicketSubCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
+                        SubCategoryId = x.SubCategoryId,
+                        CategoryId = x.CategoryId,
                         CreatedAt = x.CreatedAt
                     }).FirstOrDefault();
 
@@ -166,15 +98,13 @@ namespace SLAwareApi.Services.SLAware
                     TicketNumber = x.TicketNumber,
                     Description = x.Description,
                     Subject = x.Subject,
+                    TicketStatusId = x.TicketStatusId,
                     //TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(tn => tn.Name).FirstOrDefault(),
                     SeverityLevelId = x.SeverityLevelId,
                     CreatedById = x.CreatedById,
                     AssignedToId = x.AssignedToId,
-                    TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
-
-                    Category = _slawareContext.TicketCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
-                    SubCategory = _slawareContext.TicketSubCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
-
+                    SubCategoryId = x.SubCategoryId,
+                    CategoryId = x.CategoryId,
                     CreatedAt = x.CreatedAt
                 }).ToList();
 
@@ -222,13 +152,12 @@ namespace SLAwareApi.Services.SLAware
                         TicketNumber = x.TicketNumber,
                         Subject = x.Subject,
                         Description = x.Description,
+                        TicketStatusId = x.TicketStatusId,
                         SeverityLevelId = x.SeverityLevelId,
                         CreatedById = x.CreatedById,
                         AssignedToId = x.AssignedToId,
-                        TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
-                        Category = _slawareContext.TicketCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
-                        SubCategory = _slawareContext.TicketSubCategories.Where(c => c.Id == x.SubCategoryId).Select(c => c.Name).FirstOrDefault(),
-
+                        CategoryId = x.CategoryId,
+                        SubCategoryId = x.SubCategoryId,
                         CreatedAt = x.CreatedAt,
 
                     }).ToList();
@@ -270,26 +199,41 @@ namespace SLAwareApi.Services.SLAware
 
             try
             {
-                TicketReturn = _slawareContext.Tickets.Where(t => t.AssignedToId == userId)
-                    .Select(x => new TicketReturnModel()
-                    {
-                        Id = x.Id,
-                        TicketNumber = x.TicketNumber,
-                        Description = x.Description,
-                        Subject = x.Subject,
-                        //TicketStatus = x.TicketStatusId,
-                        SeverityLevelId = x.SeverityLevelId,
-                        CreatedById = x.CreatedById,
-                        AssignedToId = x.AssignedToId,
-                        TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
-
-                        Category = _slawareContext.TicketCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
-                        SubCategory = _slawareContext.TicketSubCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
-
-                        CreatedAt = x.CreatedAt,
-
-
-                    }).ToList();
+                TicketReturn = (from ticket in _slawareContext.Tickets
+                                join status in _slawareContext.TicketStatuses on ticket.TicketStatusId equals status.Id
+                                join category in _slawareContext.TicketCategories on ticket.CategoryId equals category.Id
+                                join sub_category in _slawareContext.TicketSubCategories on ticket.SubCategoryId equals sub_category.Id
+                                join severity in _slawareContext.SlaSeverityLevels on ticket.SeverityLevelId equals severity.Id
+                                join severity_rules in _slawareContext.SlaSeverityLevelRules on ticket.SeverityLevelId equals severity_rules.SlaSeverityLevelId
+                                join sla in _slawareContext.TicketSlaTrackings on ticket.Id equals sla.TicketId
+                                let messages = _slawareContext.TicketMessages.Where(x => x.TicketId == ticket.Id).Select(x => x.MessageContent).ToList()
+                                let activityLogs = _slawareContext.TicketActivityLogs.Where(x => x.TicketId == ticket.Id).Select(x => new TicketActivity { Created_At = x.CreatedAt, Description = x.Description}).ToList()
+                                where status.Active && category.IsActive && sub_category.IsActive && ticket.AssignedToId == userId
+                                select new TicketReturnModel
+                                {
+                                    Id = ticket.Id,
+                                    TicketNumber = ticket.TicketNumber,
+                                    Description = ticket.Description,
+                                    Subject = ticket.Subject,
+                                    SeverityLevel = $"{severity.Severity} - {severity.Name}",
+                                    TicketStatus = status.Name,
+                                    Category = category.Name,
+                                    SubCategory = sub_category.Name,
+                                    CreatedAt = ticket.CreatedAt,
+                                    InitialResponseDue = sla.ResponseDueDtm,
+                                    TargetResolutionDue = sla.ResolutionDueDtm,
+                                    IsSlaResponseBreach = sla.IsResponseSlaBreach,
+                                    IsSlaResolutionBreach = sla.IsResolutionSlaBreach,
+                                    RemainingResponseTime = sla.RemainingResponseDueTime,
+                                    RemainingResolutionTime = sla.RemainingResolutionDueTime,
+                                    Messages = messages,
+                                    TicketActivities = activityLogs,
+                                    ResolutionHours = severity_rules.TargetResolutionHours,
+                                    ResponseHours = severity_rules.InitialResponseHours,
+                                    Response_PauseAt = sla.ResponsePausedDtm,
+                                    Resolution_PauseAt = sla.ResolutionPausedDtm,
+                                    Resolved_At = sla.ResolvedDtm
+                                }).ToList();
 
                 if (TicketReturn.Count > 0)
                 {
@@ -381,9 +325,6 @@ namespace SLAwareApi.Services.SLAware
             {
                 var priority = _slawareContext.SubCategorySeverityLevels.Where(sc => sc.SubCategoryId == RequestModel.SubCategoryId).Select(sc => sc.SlaSeverityLevelId).FirstOrDefault();
                 var sla_rule = _slawareContext.SlaSeverityLevelRules.FirstOrDefault(x => x.SlaSeverityLevelId == priority);
-
-
-                Console.WriteLine("priority: " + priority);
                 //Populating the Ticket model to be inserted
 
                 var random = new Random();
@@ -394,7 +335,7 @@ namespace SLAwareApi.Services.SLAware
                     TicketNumber = ticketNumber,
                     Subject = RequestModel.Subject,
                     Description = RequestModel.Description,
-                    TicketStatusId = 1,
+                    TicketStatusId = RequestModel.TicketStatusId,
                     SeverityLevelId = priority,
                     CreatedById = RequestModel.CreatedById,
                     CategoryId = RequestModel.CategoryId,
@@ -406,29 +347,32 @@ namespace SLAwareApi.Services.SLAware
                 _slawareContext.Tickets.Add(NewTicket);
                 _slawareContext.SaveChanges();
 
-
                 //SLA tracking
                 var track = new TicketSlaTracking();
                 track.TicketId = NewTicket.Id;
                 track.SlaSeverityLevelId = priority;
                 track.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.InitialResponseHours, 0, 0));
                 track.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.TargetResolutionHours, 0, 0));
+                //track.RemainingResponseDueTime = !IsWorkingDay(NewTicket.CreatedAt.Date) || !IsWorkingHours(NewTicket.CreatedAt) ? TimeOnly.FromTimeSpan(new TimeSpan((int)sla_rule.InitialResponseHours, 0, 0)) : null;
+                //track.RemainingResolutionDueTime = !IsWorkingDay(NewTicket.CreatedAt.Date) || !IsWorkingHours(NewTicket.CreatedAt) ? TimeOnly.FromTimeSpan(new TimeSpan((int)sla_rule.TargetResolutionHours, 0, 0)) : null;
                 track.CreatedAt = DateTime.Now;
                 track.IsResponseSlaBreach = false;
                 track.IsResolutionSlaBreach = false;
                 _slawareContext.TicketSlaTrackings.Add(track);
                 _slawareContext.SaveChanges();
 
-                ////Ticket activity
-                //var activity = new TicketActivityLog();
-                //activity.UserId = NewTicket.CreatedById;
-                //activity.TicketId = NewTicket.Id;
-                //activity.Description = "Ticket created.";
-                //activity.CreatedAt = NewTicket.CreatedAt;
-                //var user = _context.Users.FirstOrDefault(x => x.Id == NewTicket.CreatedById);
-                //activity.CreatedBy = $"{user.FirstName} {user.LastName}";
-                //_slawareContext.TicketActivityLogs.Add(activity);
-                //_slawareContext.SaveChanges();
+                //Ticket activity
+                var activity = new TicketActivityLog();
+                activity.UserId = NewTicket.CreatedById;
+                activity.TicketId = NewTicket.Id;
+                activity.Description = "Ticket created.";
+                activity.CreatedAt = NewTicket.CreatedAt;
+                var user = _context.Users.FirstOrDefault(x => x.Id == NewTicket.CreatedById);
+                activity.CreatedBy = $"{user.FirstName} {user.LastName}";
+                activity.NewTicketStatusId = (int)Enums.Enums.TicketStatus.New;
+                _slawareContext.TicketActivityLogs.Add(activity);
+                _slawareContext.SaveChanges();
+
 
                 ticketReturn = new TicketReturnModel()
                 {
@@ -436,15 +380,14 @@ namespace SLAwareApi.Services.SLAware
                     Subject = NewTicket.Subject,
                     Description = NewTicket.Description,
                     SeverityLevelId = NewTicket.SeverityLevelId,
-                    TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == NewTicket.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
-                    SubCategory = _slawareContext.TicketSubCategories.Where(ts => ts.Id == NewTicket.SubCategoryId).Select(ts => ts.Name).FirstOrDefault(),
-                    Category = _slawareContext.TicketCategories.Where(ts => ts.Id == NewTicket.CategoryId).Select(ts => ts.Name).FirstOrDefault(),
+                    TicketStatusId = NewTicket.TicketStatusId,
+                    SubCategoryId = NewTicket.SubCategoryId,
                     CreatedById = NewTicket.CreatedById,
                     IsActive = NewTicket.IsActive,
                 };
 
                 Result.Status = true;
-                Result.Result = ticketReturn;
+                Result.Result = NewTicket;
                 Result.error = null;
             }
             catch (Exception ex)
@@ -460,7 +403,7 @@ namespace SLAwareApi.Services.SLAware
                     ErrErrorMessage = ex.Message.ToString(),
                     ErrStacktrace = ex.StackTrace.ToString(),
                 };
-                await _globalService.LogError(Err);
+                //await _globalService.LogError(Err);
             }
             return Result;
 
@@ -503,10 +446,8 @@ namespace SLAwareApi.Services.SLAware
                         Id = x.Id,
                         Description = x.Description,
                         Subject = x.Subject,
-                        TicketStatus = _slawareContext.TicketStatuses.Where(ts => ts.Id == x.TicketStatusId).Select(ts => ts.Name).FirstOrDefault(),
-                        Category = _slawareContext.TicketCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
-                        SubCategory = _slawareContext.TicketSubCategories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault(),
-
+                        CategoryId = x.CategoryId,
+                        SubCategoryId = x.SubCategoryId,
                         AssignedToId = x.AssignedToId,
                         IsActive = x.IsActive,
                     })
@@ -526,7 +467,7 @@ namespace SLAwareApi.Services.SLAware
             return Result;
         }
 
-        public async Task<ReturnModel> UpdateTicket(long id, UpdateTicketRequestModel RequestModel)
+        public async Task<ReturnModel> UpdateTicket(UpdateTicketRequestModel RequestModel)
         {
 
             ReturnModel Result = new ReturnModel();
@@ -534,11 +475,10 @@ namespace SLAwareApi.Services.SLAware
 
             try
             {
-
+                var ticket = _slawareContext.Tickets.FirstOrDefault(x => x.Id == RequestModel.TicketId);
                 //Check to see if the application already exists
-                var exists = _slawareContext.Tickets.Where(ts => ts.Id == id).FirstOrDefault();
 
-                if (exists == null)
+                if (ticket == null)
                 {
                     Result.Status = false;
                     Result.Result = ticketStatusReturn;
@@ -546,44 +486,63 @@ namespace SLAwareApi.Services.SLAware
                 }
                 else
                 {
-                    //Populating the application model to be updated    
-                    // Updating Name
-                    //if (!string.IsNullOrWhiteSpace(RequestModel))
-                    //{
-                    //    exists.Name = RequestModel.Name;
-                    //}
-
-                    //// Updating IsActive
-                    //if (RequestModel.Active.HasValue)
-                    //{
-                    //    exists.Active = RequestModel.Active.Value;
-                    //}
-
-                    //// Updating Description
-                    //if (!string.IsNullOrWhiteSpace(RequestModel.Description))
-                    //{
-                    //    exists.Description = RequestModel.Description;
-                    //}
+                    //Ticket
+                    ticket.TicketStatusId = _slawareContext.TicketStatuses.FirstOrDefault(x => x.Name == RequestModel.Status).Id;
 
 
+                    //SLA Tracking
+                    var sla = _slawareContext.TicketSlaTrackings.FirstOrDefault(x => x.TicketId == ticket.Id);
+
+                    if (!sla.FirstResponseAt.HasValue)
+                    {
+                        sla.FirstResponseAt = DateTime.Now;
+                    }
                     _slawareContext.SaveChanges();
 
-                    ticketStatusReturn = _slawareContext.TicketStatuses.Where(x => x.Id == id).Select(x => new TicketStatusReturnModel()
+                    //Message
+                    if (!string.IsNullOrEmpty(RequestModel.Message))
                     {
-                        Id = x.Id,
-                        Description = x.Description,
-                        Name = x.Name,
-                        Active = x.Active,
-                    }).FirstOrDefault();
+                        var model = new TicketMessage();
+                        model.TicketId = ticket.Id;
+                        model.CreatedAt = DateTime.Now;
+                        model.MessageContent = RequestModel.Message;
+                        _slawareContext.TicketMessages.Add(model);
+                       _slawareContext.SaveChanges();
+                    }
+
+                    //Activity
+                    if(_slawareContext.TicketActivityLogs.OrderBy(x => x.Id).LastOrDefault(x => x.TicketId == RequestModel.TicketId) is { } log)
+                    {
+                        var act = new TicketActivityLog();
+                        var statuses = _slawareContext.TicketStatuses.Where(x => x.Active).ToList();
+                        var user = _context.Users.FirstOrDefault(x => x.Id == RequestModel.UserId);
+                        var oldSt = log.NewTicketStatusId;
+                        var newSt = ticket.TicketStatusId;
+                        act.NewTicketStatusId = newSt;
+                        act.OldTicketStatusId = oldSt;
+                        act.Description = $"Ticket status changed from {statuses.FirstOrDefault(x => x.Id == oldSt).Name} to {statuses.FirstOrDefault(x => x.Id == newSt).Name}";
+                        act.CreatedAt = DateTime.Now;
+                        act.CreatedBy = $"{user.FirstName} {user.LastName}";
+                        act.UserId = RequestModel.UserId;
+                        act.TicketId = log.TicketId;
+                        _slawareContext.TicketActivityLogs.Add(act);
+                        //_slawareContext.SaveChanges();
+                    }
+
+                    OnTicketStatusChanged(ticket.Id, ticket.TicketStatusId);
+
 
                     Result.Status = true;
-                    Result.Result = ticketStatusReturn;
+                    Result.Result = null;
                     Result.error = null;
 
                 }
             }
             catch (Exception ex)
             {
+                Result.Status = false;
+                Result.Result = null;
+                Result.error = ex.Message.ToString();
                 //Gathering All the Error Details to be saved
                 var Err = new ErrorTemplate
                 {
@@ -594,8 +553,88 @@ namespace SLAwareApi.Services.SLAware
                 await _globalService.LogError(Err);
             }
             return Result;
+        }
 
+        private void OnTicketStatusChanged(long ticketId, long ticketStatusId)
+        {
+            if (ticketStatusId == (int)Enums.Enums.TicketStatus.AwaitingFeedback)
+            {
+                TicketPause(ticketId);
+            }
+            if(ticketStatusId == (int)Enums.Enums.TicketStatus.Resolved)
+            {
+                TicketClose(ticketId);
+            }
+            else if(ticketStatusId != (int)Enums.Enums.TicketStatus.AwaitingFeedback && ticketStatusId != (int)Enums.Enums.TicketStatus.Resolved)
+            {
+                TicketResume(ticketId);
+            }
+        }
 
+        private void TicketPause(long ticketId)
+        {
+            var ticket = _slawareContext.TicketSlaTrackings.FirstOrDefault(x => x.TicketId == ticketId);
+
+            if (!ticket.ResponsePausedDtm.HasValue)
+            {
+                if (!ticket.IsResponseSlaBreach.Value && DateTime.Now <= ticket.ResponseDueDtm)
+                {
+                    ticket.ResponsePausedDtm = DateTime.Now;
+                    ticket.RemainingResponseDueTime = TimeOnly.FromTimeSpan(ticket.ResponseDueDtm - DateTime.Now);
+                }
+            }
+
+            if(!ticket.ResolutionPausedDtm.HasValue)
+            {
+                if (!ticket.IsResolutionSlaBreach.Value && DateTime.Now <= ticket.ResolutionDueDtm)
+                {
+                    ticket.ResolutionPausedDtm = DateTime.Now;
+                    ticket.RemainingResolutionDueTime = TimeOnly.FromTimeSpan(ticket.ResolutionDueDtm - DateTime.Now);
+                }
+            }
+            _slawareContext.SaveChanges();
+        }
+
+        private void TicketResume(long ticketId)
+        {
+            var ticket = _slawareContext.TicketSlaTrackings.FirstOrDefault(x => x.TicketId == ticketId);
+
+            if (ticket.ResponsePausedDtm.HasValue)
+            {
+                ticket.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(DateTime.Now, ticket.RemainingResponseDueTime.Value.ToTimeSpan());
+                ticket.ResponsePausedDtm = null;
+                ticket.RemainingResponseDueTime = null;
+            }
+            
+            if (ticket.ResolutionPausedDtm.HasValue)
+            {
+                ticket.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(DateTime.Now, ticket.RemainingResolutionDueTime.Value.ToTimeSpan());
+                ticket.ResolutionPausedDtm = null;
+                ticket.RemainingResolutionDueTime = null;
+            }
+
+            _slawareContext.SaveChanges();
+        }
+
+        private void TicketClose(long ticketId)
+        {
+            var ticket = _slawareContext.TicketSlaTrackings.FirstOrDefault(x => x.TicketId == ticketId);
+
+            ticket.ResolvedDtm = DateTime.Now;
+
+            if (ticket.ResponsePausedDtm.HasValue)
+            {
+                ticket.ResponsePausedDtm = null;
+                ticket.RemainingResponseDueTime = null;
+            }
+
+            if (ticket.ResolutionPausedDtm.HasValue)
+            {
+                ticket.ResolutionPausedDtm = null;
+                ticket.RemainingResolutionDueTime = null;
+            }
+
+            _slawareContext.SaveChanges();
         }
     }
 }

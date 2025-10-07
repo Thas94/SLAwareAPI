@@ -11,8 +11,6 @@ namespace SLAwareApi.Services.SLAware
 {
     public class SlaSeverityService : ClinicalServiceBase, ISlaSeverityService
     {
-        public static readonly TimeSpan WorkStart = new TimeSpan(8, 30, 0);
-        public static readonly TimeSpan WorkEnd = new TimeSpan(17, 0, 0);
         //public SlaSeverityService(slaware_dataContext slaware_DataContext) : base(slaware_DataContext)
         //{ }
 
@@ -33,16 +31,25 @@ namespace SLAwareApi.Services.SLAware
             {
                 while (remaining > TimeSpan.Zero)
                 {
-                    if (!IsWorkingDay(current.Date))
+                    if (!IsWorkingDay(current.Date) || !IsWorkingHours(current) || IsPublicHoliday(current))
                     {
                         current = current.Date.AddDays(1).Add(WorkStart);
                         continue;
                     }
+                    
+                    //if (!IsWorkingHours(current))
+                    //{
+                    //    current = current.Date.Add(WorkStart);
+                    //    continue;
+                    //}
 
                     var workStartToday = current.Date.Add(WorkStart);
                     var workEndToday = current.Date.Add(WorkEnd);
 
                     if (current < workStartToday)
+                        current = workStartToday;
+                    
+                    if (current > workEndToday)
                         current = workStartToday;
 
                     var availableToday = workEndToday - current;
@@ -60,11 +67,6 @@ namespace SLAwareApi.Services.SLAware
 
             }
             return current;
-        }
-
-        private bool IsWorkingDay(DateTime date)
-        {
-            return date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday ? true : false;
         }
     }
 }
