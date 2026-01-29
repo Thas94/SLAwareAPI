@@ -49,6 +49,8 @@ public partial class slaware_dataContext : DbContext
 
     public virtual DbSet<TicketTag> TicketTags { get; set; }
 
+    public virtual DbSet<Traffic> Traffics { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserCompany> UserCompanies { get; set; }
@@ -595,6 +597,41 @@ public partial class slaware_dataContext : DbContext
             entity.Property(e => e.UpdatedBy)
                 .HasMaxLength(100)
                 .HasColumnName("updated_by");
+        });
+
+        modelBuilder.Entity<Traffic>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__traffic__3213E83F0460930B");
+
+            entity.ToTable("traffic");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ExceptionDetail).HasColumnName("exception_detail");
+            entity.Property(e => e.ExceptionMessage).HasColumnName("exception_message");
+            entity.Property(e => e.ExceptionType)
+                .HasMaxLength(255)
+                .HasColumnName("exception_type");
+            entity.Property(e => e.RequestBody)
+                .IsUnicode(false)
+                .HasColumnName("request_body");
+            entity.Property(e => e.RequestIpAddress)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("request_ip_address");
+            entity.Property(e => e.RequestMethod)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("request_method");
+            entity.Property(e => e.RequestTimestamp)
+                .HasColumnType("datetime")
+                .HasColumnName("request_timestamp");
+            entity.Property(e => e.RequestUrl)
+                .HasMaxLength(2000)
+                .HasColumnName("request_url");
+            entity.Property(e => e.ResponseStatusCode).HasColumnName("response_status_code");
+            entity.Property(e => e.ResponseTimestamp)
+                .HasColumnType("datetime")
+                .HasColumnName("response_timestamp");
         });
 
         modelBuilder.Entity<User>(entity =>

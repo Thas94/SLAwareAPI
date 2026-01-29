@@ -9,9 +9,10 @@ using TFTShuttiAPI.TFTEntities.Helpers;
 using static SLAwareApi.Models.SLAware.Ticket.TicketModel;
 using static SLAwareApi.Models.SLAware.TicketCategory.TicketCategoryModels;
 using static SLAwareApi.Models.SLAware.TicketStatus.TicketStatusModels;
+using static SLAwareApi.Models.SLAware.TicketSubCategory.TicketSubCategoryModels;
 using static SLAwareApi.Models.TFTApp.GlobalsModels;
 
-namespace SLAwareApi.Services.SLAware.TicketCategory
+namespace SLAwareApi.Services.SLAware
 {
 
     public class TicketCategoryService : ClinicalServiceBase, ITicketCategoryService
@@ -125,6 +126,54 @@ namespace SLAwareApi.Services.SLAware.TicketCategory
 
         }
 
+        public async Task<ReturnModel> GetSubCategoriesForCategory(long categoryId)
+        {
+            ReturnModel result = new ReturnModel();
+
+            try
+            {
+                var subCategories = _slawareContext.TicketSubCategories
+                    .Where(x => x.TicketCategoryId == categoryId)
+                    .Select(x => new TicketSubCategoryReturnModel
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        IsActive = x.IsActive,
+                        TicketCategoryId = x.TicketCategoryId,
+                        CreatedAt = x.CreatedAt,
+                        CreatedBy = x.CreatedBy,
+                        UpdatedAt = x.UpdatedAt,
+                        UpdatedBy = x.UpdatedBy,
+                    })
+                    .ToList();
+
+                if (subCategories != null && subCategories.Any())
+                {
+                    result.Status = true;
+                    result.Result = subCategories;
+                    result.error = null;
+                }
+                else
+                {
+                    result.Status = false;
+                    result.Result = subCategories;
+                    result.error = $"No subcategories found for category id: {categoryId}";
+                }
+            }
+            catch (Exception ex)
+            {
+                //Gathering All the Error Details to be saved
+                var err = new ErrorTemplate
+                {
+                    ErrCallingFunction = "Ticket SubCategory Service : Get Sub Categories for Category",
+                    ErrErrorMessage = ex.Message,
+                    ErrStacktrace = ex.StackTrace,
+                };
+                await _globalService.LogError(err);
+            }
+
+            return result;
+        }
 
         public async Task<ReturnModel> UpdateTicketCategory(long id, UpdateTicketCategoryRequestModel RequestModel)
         {
@@ -327,6 +376,76 @@ namespace SLAwareApi.Services.SLAware.TicketCategory
 
         //}
 
+        public async Task<ReturnModel> CreateTicketCategory(CreateTicketCategoryRequestModel RequestModel)
+        {
+
+            ReturnModel Result = new ReturnModel();
+            TicketCategoryReturnModel ticketCategoryReturn = null;
+
+            try
+            {
+
+                //Check to see if the site already exists
+                var exists = _slawareContext.TicketCategories.Where(t => t.Name == RequestModel.Name).FirstOrDefault();
+
+                if (exists != null)
+                {
+                    Result.Status = false;
+                    Result.Result = ticketCategoryReturn;
+                    Result.error = $"A Ticket Category with the name :{RequestModel.Name} already exists!";
+                }
+                else
+                {
+                    //Populating the Site model to be inserted
+                    TicketCategory NewTicketCategory = new TicketCategory()
+                    {
+                        Name = RequestModel.Name,
+                        IsActive = true,
+                        CreatedAt = DateTime.Now,
+                        CreatedBy = _context.Users.Where(u => u.Id == RequestModel.loggedInUser).Select(u => u.FirstName).FirstOrDefault(),
+                        UpdatedAt = DateTime.Now,
+                        UpdatedBy = _context.Users.Where(u => u.Id == RequestModel.loggedInUser).Select(u => u.FirstName).FirstOrDefault()
+                    };
+
+                    _slawareContext.TicketCategories.Add(NewTicketCategory);
+                    _context.SaveChanges();
+
+                    ticketCategoryReturn = new TicketCategoryReturnModel()
+                    {
+                        Id = NewTicketCategory.Id,
+                        Name = NewTicketCategory.Name,
+                        IsActive = NewTicketCategory.IsActive,
+                        CreatedAt = NewTicketCategory.CreatedAt,
+                        CreatedBy = NewTicketCategory.CreatedBy,
+                        UpdatedAt = NewTicketCategory.UpdatedAt,
+                        UpdatedBy = NewTicketCategory.UpdatedBy,
+                    };
+
+                    Result.Status = true;
+                    Result.Result = ticketCategoryReturn;
+                    Result.error = null;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Result.Result = null;
+                Result.Status = false;
+                Result.error = ex.Message.ToString();
+
+                //Gathering All the Error Details to be saved
+                var Err = new ErrorTemplate
+                {
+                    ErrCallingFunction = "Ticket Category Service: Create Ticket Category",
+                    ErrErrorMessage = ex.Message.ToString(),
+                    ErrStacktrace = ex.StackTrace.ToString(),
+                };
+                await _globalService.LogError(Err);
+            }
+            return Result;
+
+
+        }
 
     }
 }

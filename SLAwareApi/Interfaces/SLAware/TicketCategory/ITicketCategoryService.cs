@@ -11,6 +11,9 @@ namespace SLAwareApi.Interfaces.SLAware.TicketCategory
         Task<ReturnModel> GetCategory(long id);
         Task<ReturnModel> UpdateTicketCategory(long id, UpdateTicketCategoryRequestModel RequestModel);
         Task<ReturnModel> DeleteTicketCategory(long id);
-      
+        Task<ReturnModel> CreateTicketCategory(CreateTicketCategoryRequestModel RequestModel);
+        Task<ReturnModel> GetSubCategoriesForCategory(long id);
+
+
     }
 }

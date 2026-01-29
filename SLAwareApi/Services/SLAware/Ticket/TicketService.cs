@@ -348,18 +348,18 @@ namespace SLAwareApi.Services.SLAware
                 _slawareContext.SaveChanges();
 
                 //SLA tracking
-                var track = new TicketSlaTracking();
-                track.TicketId = NewTicket.Id;
-                track.SlaSeverityLevelId = priority;
-                track.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.InitialResponseHours, 0, 0));
-                track.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.TargetResolutionHours, 0, 0));
-                //track.RemainingResponseDueTime = !IsWorkingDay(NewTicket.CreatedAt.Date) || !IsWorkingHours(NewTicket.CreatedAt) ? TimeOnly.FromTimeSpan(new TimeSpan((int)sla_rule.InitialResponseHours, 0, 0)) : null;
-                //track.RemainingResolutionDueTime = !IsWorkingDay(NewTicket.CreatedAt.Date) || !IsWorkingHours(NewTicket.CreatedAt) ? TimeOnly.FromTimeSpan(new TimeSpan((int)sla_rule.TargetResolutionHours, 0, 0)) : null;
-                track.CreatedAt = DateTime.Now;
-                track.IsResponseSlaBreach = false;
-                track.IsResolutionSlaBreach = false;
-                _slawareContext.TicketSlaTrackings.Add(track);
-                _slawareContext.SaveChanges();
+                //var track = new TicketSlaTracking();
+                //track.TicketId = NewTicket.Id;
+                //track.SlaSeverityLevelId = priority;
+                //track.ResponseDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.InitialResponseHours, 0, 0));
+                //track.ResolutionDueDtm = _slaSeverityService.CalculateSlaDue(NewTicket.CreatedAt, new TimeSpan((int)sla_rule.TargetResolutionHours, 0, 0));
+                ////track.RemainingResponseDueTime = !IsWorkingDay(NewTicket.CreatedAt.Date) || !IsWorkingHours(NewTicket.CreatedAt) ? TimeOnly.FromTimeSpan(new TimeSpan((int)sla_rule.InitialResponseHours, 0, 0)) : null;
+                ////track.RemainingResolutionDueTime = !IsWorkingDay(NewTicket.CreatedAt.Date) || !IsWorkingHours(NewTicket.CreatedAt) ? TimeOnly.FromTimeSpan(new TimeSpan((int)sla_rule.TargetResolutionHours, 0, 0)) : null;
+                //track.CreatedAt = DateTime.Now;
+                //track.IsResponseSlaBreach = false;
+                //track.IsResolutionSlaBreach = false;
+                //_slawareContext.TicketSlaTrackings.Add(track);
+                //_slawareContext.SaveChanges();
 
                 //Ticket activity
                 var activity = new TicketActivityLog();
